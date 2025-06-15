@@ -1,0 +1,83 @@
+
+  /* === Paleta de colores Alumnalia === */
+:root {
+    --color-primario: #1D3557;   /* azul oscuro */
+    --color-secundario: #457B9D; /* azul medio */
+    --color-acento: #E63946;     /* rojo coral */
+    --color-fondo: #F1FAEE;      /* blanco crema */
+    --color-suave: #A8DADC;      /* azul claro */
+    --color-texto: #1D3557;
+}
+
+/* === Tipografía y cuerpo === */
+body {
+    font-family: "Segoe UI", Roboto, sans-serif;
+    color: var(--color-texto);
+    background-color: var(--color-fondo);
+}
+
+/* === Encabezados === */
+h1, h2, h3 {
+    color: var(--color-primario);
+    font-weight: 600;
+}
+
+/* === Botones personalizados === */
+.btn-primary {
+    background-color: var(--color-secundario);
+    border-color: var(--color-secundario);
+    color: white;
+}
+.btn-primary:hover {
+    background-color: var(--color-primario);
+    border-color: var(--color-primario);
+}
+
+.btn-outline-primary {
+    color: var(--color-secundario);
+    border-color: var(--color-secundario);
+}
+.btn-outline-primary:hover {
+    background-color: var(--color-secundario);
+    color: white;
+}
+
+/* === Botón de acción/alerta/acento === */
+.btn-danger {
+    background-color: var(--color-acento);
+    border-color: var(--color-acento);
+    color: white;
+}
+.btn-danger:hover {
+    background-color: #c72537;
+    border-color: #c72537;
+}
+
+/* === Tablas === */
+.table th, .table td {
+    vertical-align: middle;
+}
+.table thead th {
+    background-color: var(--color-suave);
+    color: var(--color-primario);
+}
+
+/* === Formularios === */
+input.form-control:focus,
+select.form-select:focus,
+textarea.form-control:focus {
+    border-color: var(--color-secundario);
+    box-shadow: 0 0 0 0.2rem rgba(69, 123, 157, 0.25);
+}
+
+/* === Footer === */
+footer {
+    background-color: var(--color-suave);
+    color: var(--color-primario);
+    font-size: 0.9rem;
+    border-top: 1px solid #ccc;
+    padding: 1rem;
+    position: fixed !important;
+    bottom: 0;
+    width: 100%;
+}
