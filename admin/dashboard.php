@@ -53,6 +53,17 @@ require_once '../includes/header.php';
         </div>
     </div>
 
+    <div class="col-md-4 mb-4">
+  <div class="card shadow-sm h-100">
+    <div class="card-body text-center">
+      <i class="bi bi-tags" style="font-size: 2rem;"></i>
+      <h5 class="card-title mt-2">Etiquetas</h5>
+      <p class="card-text">Gestiona las etiquetas utilizadas para clasificar ejercicios.</p>
+      <a href="etiquetas.php" class="btn btn-outline-primary btn-sm">Acceder</a>
+    </div>
+  </div>
+</div>
+
     <div class="col-md-4">
         <div class="card border-info h-100">
             <div class="card-body text-center">

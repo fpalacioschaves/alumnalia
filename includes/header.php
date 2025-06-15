@@ -32,6 +32,7 @@ require_once 'auth.php';
         <li class="nav-item"><a class="nav-link" href="cursos.php"><i class="bi bi-journal-bookmark"></i> Cursos</a></li>
         <li class="nav-item"><a class="nav-link" href="asignaturas.php"><i class="bi bi-journal-bookmark"></i> Asignaturas</a></li>
         <li class="nav-item"><a class="nav-link" href="examenes.php"><i class="bi bi-file-earmark-text"></i> Exámenes</a></li>
+        <li class="nav-item"><a class="nav-link" href="etiquetas.php"><i class="bi bi-tags"></i> Etiquetas</a></li>
       </ul>
       <span class="navbar-text text-white me-3">
         <?= $_SESSION['user_nombre'] ?? 'Administrador' ?>
