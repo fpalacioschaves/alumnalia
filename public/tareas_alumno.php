@@ -18,7 +18,7 @@ $stmt = $pdo->prepare("SELECT ta.id, ep.enunciado, ta.estado, ta.fecha_asignacio
 $stmt->execute([$alumno_id]);
 $tareas = $stmt->fetchAll();
 ?>
-
+<div class="container mt-4">
 <h2 class="mb-4">Mis Ejercicios Propuestos</h2>
 
 <?php if ($tareas): ?>
@@ -43,7 +43,8 @@ $tareas = $stmt->fetchAll();
 <?php else: ?>
     <div class="alert alert-info">No tienes ejercicios asignados actualmente.</div>
 <?php endif; ?>
-
 <a href="panel_alumno.php" class="btn btn-outline-secondary mt-4">&larr; Volver al panel</a>
+</div>
+
 
 <?php require_once '../includes/footer.php'; ?>

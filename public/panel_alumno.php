@@ -9,12 +9,12 @@ if (!isset($_SESSION['usuario_id']) || $_SESSION['rol'] !== 'alumno') {
 
 $alumno_id = $_SESSION['usuario_id'];
 $nombre = $_SESSION['user_nombre'];
-$apellido = $_SESSION['user_apellido'] ?? '';
+$apellido = $_SESSION['user_apellido'] ;
 require_once 'header.php';
 ?>
 
 <div class="container mt-4">
-    <h2 class="mb-4">Bienvenido, <? echo  htmlspecialchars($nombre); ?> <? echo htmlspecialchars($apellido); ?> </h2>
+    <h2 class="mb-4">Bienvenido, <?php echo  htmlspecialchars($nombre); ?> <?php echo htmlspecialchars($apellido); ?> </h2>
 
     <div class="row">
         <div class="col-md-6 mb-4">
