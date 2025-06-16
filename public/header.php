@@ -1,6 +1,5 @@
 <?php
 require_once '../includes/db.php';
-session_start();
 $alumno_id = $_SESSION['usuario_id'];
 $nombre = $_SESSION['user_nombre'];
 $apellido = $_SESSION['user_apellido'] ?? '';
@@ -14,6 +13,7 @@ $apellido = $_SESSION['user_apellido'] ?? '';
     <title>Zona Alumno - Alumnalia</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel="stylesheet" href="../admin/assets/css/alumnalia.css">
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary">

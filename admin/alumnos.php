@@ -46,6 +46,9 @@ $alumnos = $stmt->fetchAll();
                     <a href="alumno_eliminar.php?id=<?= $al['id'] ?>" class="btn btn-danger btn-sm" onclick="return confirm('¿Estás seguro de eliminar este alumno?');">
                         <i class="bi bi-trash"></i>
                     </a>
+                    <a href="progreso_alumno.php?alumno_id=<?= $al['id'] ?>" class="btn btn-outline-success btn-sm" title="Informe de progreso">
+                        <i class="bi bi-bar-chart-line"></i> Progreso
+                    </a>
                     <a href="alumno_examenes.php?id=<?= $al['id'] ?>" class="btn btn-outline-info btn-sm">
                         <i class="bi bi-journal-check"></i> Exámenes
                     </a>
