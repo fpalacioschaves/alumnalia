@@ -11,7 +11,7 @@ function tipo_usuario() {
 
 function redirigir_si_no_autenticado() {
     if (!usuario_autenticado()) {
-        header("Location: login.php");
+        header("Location: adminlogin.php");
         exit;
     }
 }

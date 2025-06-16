@@ -7,33 +7,23 @@ solo_admin();
 
 $alumnos = $_POST['alumnos'] ?? [];
 $ejercicios = $_POST['ejercicios'] ?? [];
-$etiqueta_id = $_POST['etiqueta_id'] ?? null;
-$curso_id = $_POST['curso_id'] ?? null;
 
 if (empty($alumnos) || empty($ejercicios)) {
     header("Location: asignacion_manual.php?error=1");
     exit;
 }
 
-$insertados = 0;
-
 foreach ($alumnos as $alumno_id) {
     foreach ($ejercicios as $ejercicio_id) {
-        try {
-            $stmt = $pdo->prepare("
-                INSERT IGNORE INTO tareas_asignadas (alumno_id, ejercicio_id)
-                VALUES (?, ?)
-            ");
+        // Verificar que no esté ya asignado
+        $stmt = $pdo->prepare("SELECT COUNT(*) FROM tareas_asignadas WHERE alumno_id = ? AND ejercicio_id = ?");
+        $stmt->execute([$alumno_id, $ejercicio_id]);
+        if ($stmt->fetchColumn() == 0) {
+            $stmt = $pdo->prepare("INSERT INTO tareas_asignadas (alumno_id, ejercicio_id, estado) VALUES (?, ?, 'sin_enviar')");
             $stmt->execute([$alumno_id, $ejercicio_id]);
-            if ($stmt->rowCount() > 0) {
-                $insertados++;
-            }
-        } catch (PDOException $e) {
-            // podrías loguear el error si lo necesitas
         }
     }
 }
 
-// Redirige de vuelta a la página de origen
-header("Location: alumnos.php");
+header("Location: asignacion_manual.php?alumno_id=" . $alumnos[0] . "&success=1");
 exit;

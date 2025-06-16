@@ -13,8 +13,8 @@ if (!$alumno_id || !$enunciado) {
     die("Parámetros inválidos.");
 }
 
-// Obtener ID del ejercicio por enunciado exacto (seguro si es único)
-$stmt = $pdo->prepare("SELECT id FROM ejercicios WHERE enunciado = ?");
+// Buscar el ejercicio en ejercicios_propuestos
+$stmt = $pdo->prepare("SELECT id FROM ejercicios_propuestos WHERE enunciado = ?");
 $stmt->execute([$enunciado]);
 $ejercicio = $stmt->fetch();
 

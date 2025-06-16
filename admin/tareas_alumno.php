@@ -6,6 +6,20 @@ redirigir_si_no_autenticado();
 
 $alumno_id = $_GET['id'];  // Se asume que el alumno está autenticado
 
+// Obtener datos del alumno
+$stmt = $pdo->prepare("
+    SELECT u.nombre, u.apellido, c.nombre AS curso
+    FROM alumnos a
+    JOIN usuarios u ON a.id = u.id
+    JOIN cursos c ON a.curso_id = c.id
+    WHERE a.id = ?
+");
+$stmt->execute([$alumno_id]);
+$alumno = $stmt->fetch();
+if (!$alumno) {
+    header("Location: alumnos.php");
+    exit;
+}
 
 
 // Obtener tareas asignadas
@@ -25,7 +39,7 @@ $tareas = $stmt->fetchAll();
 require_once '../includes/header.php';
 ?>
 
-<h2 class="mt-4">Mis ejercicios de refuerzo</h2>
+<h2 class="mt-4">Necesidades de refuerzo de <?= htmlspecialchars($alumno['nombre'] . ' ' . $alumno['apellido']) ?></h2>
 
 <?php if (empty($tareas)): ?>
     <div class="alert alert-info">No tienes ejercicios de refuerzo asignados por ahora.</div>
