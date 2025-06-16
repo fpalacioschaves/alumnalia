@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 15-06-2025 a las 20:59:57
+-- Tiempo de generación: 16-06-2025 a las 22:25:54
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -68,7 +68,7 @@ CREATE TABLE `asignaturas` (
   `nombre` varchar(100) NOT NULL,
   `descripcion` text DEFAULT NULL,
   `curso_id` int(11) DEFAULT NULL
-) ENGINE=InnoDB   ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `asignaturas`
@@ -113,23 +113,51 @@ CREATE TABLE `ejercicios` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `examen_id` int(11) DEFAULT NULL,
   `enunciado` text DEFAULT NULL,
-  `tipo` varchar(20) DEFAULT NULL CHECK (`tipo` in ('abierta','test','multi')),
+  `tipo` varchar(20) DEFAULT NULL,
   `puntuacion` decimal(5,2) DEFAULT 1.00,
   `orden` int(11) DEFAULT NULL,
-  `etiqueta_id` int(11) DEFAULT NULL
+  `etiqueta_id` int(11) DEFAULT NULL,
+  `tema_id` int(11) DEFAULT NULL,
+  `dificultad` enum('baja','media','alta') DEFAULT 'media'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `ejercicios`
 --
 
-INSERT INTO `ejercicios` (`id`, `examen_id`, `enunciado`, `tipo`, `puntuacion`, `orden`, `etiqueta_id`) VALUES
-(4, 2, 'Devuelve los nombres de los personajes que pertenecen a la casa \"Stark\".', 'abierta', 1.60, 1, 3),
-(5, 2, 'Devuelve el nombre de la batalla que se ha librado en \"Meereen\".', 'abierta', 1.60, 2, 3),
-(6, 2, 'Devuelve el título del personaje que ha participado en una batalla cuyo resultado ha sido \"Derrota\".', 'abierta', 1.60, 3, 3),
-(7, 2, 'Devuelve una lista con los personajes y el número de batallas en las que ha participado cada uno.', 'abierta', 1.60, 4, 4),
-(8, 2, 'Devuelve un resumen en XML con todos los nombres de personajes y el nombre de cada batalla, con esta estructura:\r\n\r\n<resumen>\r\n\r\n  <personaje nombre=\"Jon Snow\">\r\n\r\n    <batalla>Batalla de los Bastardos</batalla>\r\n\r\n  </personaje>\r\n\r\n  ...\r\n\r\n</resumen>', 'abierta', 1.60, 5, 4),
-(9, 2, 'Devuelve la lista de casas con el número total de victorias obtenidas por sus personajes, ordenada de mayor a menor número de victorias. EL resultado debe tener este formato: \r\n\r\n<casa nombre=\"Stark\" victorias=\"4\"/>\r\n\r\n<casa nombre=\"Lannister\" victorias=\"2\"/>\r\n\r\n<casa nombre=\"Targaryen\" victorias=\"1\"/>\r\n\r\n\r\n<casa nombre=\"Tarth\" victorias=\"1\"/>', 'abierta', 1.60, 6, 4);
+INSERT INTO `ejercicios` (`id`, `examen_id`, `enunciado`, `tipo`, `puntuacion`, `orden`, `etiqueta_id`, `tema_id`, `dificultad`) VALUES
+(4, 2, 'Devuelve los nombres de los personajes que pertenecen a la casa \"Stark\".', 'abierta', 1.60, 1, 3, NULL, 'media'),
+(5, 2, 'Devuelve el nombre de la batalla que se ha librado en \"Meereen\".', 'abierta', 1.60, 2, 3, NULL, 'media'),
+(6, 2, 'Devuelve el título del personaje que ha participado en una batalla cuyo resultado ha sido \"Derrota\".', 'abierta', 1.60, 3, 3, NULL, 'media'),
+(7, 2, 'Devuelve una lista con los personajes y el número de batallas en las que ha participado cada uno.', 'abierta', 1.60, 4, 4, NULL, 'media'),
+(8, 2, 'Devuelve un resumen en XML con todos los nombres de personajes y el nombre de cada batalla, con esta estructura:\r\n\r\n<resumen>\r\n\r\n  <personaje nombre=\"Jon Snow\">\r\n\r\n    <batalla>Batalla de los Bastardos</batalla>\r\n\r\n  </personaje>\r\n\r\n  ...\r\n\r\n</resumen>', 'abierta', 1.60, 5, 4, NULL, 'media'),
+(9, 2, 'Devuelve la lista de casas con el número total de victorias obtenidas por sus personajes, ordenada de mayor a menor número de victorias. EL resultado debe tener este formato: \r\n\r\n<casa nombre=\"Stark\" victorias=\"4\"/>\r\n\r\n<casa nombre=\"Lannister\" victorias=\"2\"/>\r\n\r\n<casa nombre=\"Targaryen\" victorias=\"1\"/>\r\n\r\n\r\n<casa nombre=\"Tarth\" victorias=\"1\"/>', 'abierta', 1.60, 6, 4, NULL, 'media');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `ejercicios_propuestos`
+--
+
+CREATE TABLE `ejercicios_propuestos` (
+  `id` int(11) NOT NULL,
+  `tema_id` int(11) DEFAULT NULL,
+  `etiqueta_id` bigint(20) DEFAULT NULL,
+  `tipo` enum('desarrollo','test','codigo') DEFAULT 'desarrollo',
+  `dificultad` enum('baja','media','alta') DEFAULT 'media',
+  `enunciado` text DEFAULT NULL,
+  `solucion` text DEFAULT NULL,
+  `activo` tinyint(1) DEFAULT 1,
+  `creado_en` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+
+--
+-- Volcado de datos para la tabla `ejercicios_propuestos`
+--
+
+INSERT INTO `ejercicios_propuestos` (`id`, `tema_id`, `etiqueta_id`, `tipo`, `dificultad`, `enunciado`, `solucion`, `activo`, `creado_en`) VALUES
+(1, 1, 3, 'desarrollo', 'media', 'sdfasdfasasdf', '', 1, '2025-06-16 07:38:06'),
+(2, 1, 3, 'desarrollo', 'baja', 'vbndfghdfhdfghdfghdfghd', '', 1, '2025-06-16 08:47:29');
 
 -- --------------------------------------------------------
 
@@ -286,10 +314,10 @@ INSERT INTO `resoluciones` (`id`, `alumno_id`, `ejercicio_id`, `respuesta_texto`
 (22, 128, 5, NULL, NULL, 0.00, '2025-06-15 17:36:51'),
 (23, 129, 5, NULL, NULL, 1.00, '2025-06-15 17:13:11'),
 (24, 130, 5, NULL, NULL, 1.60, '2025-06-15 17:13:15'),
-(25, 128, 6, NULL, NULL, 0.00, '2025-06-15 17:36:53'),
-(26, 128, 7, NULL, NULL, 0.50, '2025-06-15 17:40:41'),
+(25, 128, 6, NULL, NULL, 1.00, '2025-06-16 15:34:57'),
+(26, 128, 7, NULL, NULL, 0.10, '2025-06-16 16:33:34'),
 (27, 128, 8, NULL, NULL, 0.00, '2025-06-15 17:39:16'),
-(28, 128, 9, NULL, NULL, 0.50, '2025-06-15 17:40:16'),
+(28, 128, 9, NULL, NULL, 0.10, '2025-06-16 16:33:38'),
 (29, 129, 6, NULL, NULL, 1.00, '2025-06-15 17:13:37'),
 (30, 129, 7, NULL, NULL, 1.00, '2025-06-15 17:13:38'),
 (31, 129, 8, NULL, NULL, 1.00, '2025-06-15 17:13:40'),
@@ -407,12 +435,33 @@ CREATE TABLE `tareas_asignadas` (
 --
 
 INSERT INTO `tareas_asignadas` (`id`, `alumno_id`, `ejercicio_id`, `fecha_asignacion`, `completado`, `estado`) VALUES
-(1, 128, 6, '2025-06-15 17:52:49', 0, 'resuelto'),
 (2, 128, 4, '2025-06-15 17:52:52', 0, 'sin_enviar'),
 (8, 128, 5, '2025-06-15 17:53:53', 0, 'enviado'),
 (10, 128, 7, '2025-06-15 17:58:38', 0, 'sin_enviar'),
 (11, 128, 9, '2025-06-15 17:58:39', 0, 'sin_enviar'),
-(28, 128, 8, '2025-06-15 18:12:10', 0, 'sin_enviar');
+(21, 128, 1, '2025-06-16 08:29:34', 0, 'resuelto'),
+(28, 128, 8, '2025-06-15 18:12:10', 0, 'sin_enviar'),
+(51, 128, 6, '2025-06-15 17:52:49', 0, 'resuelto'),
+(52, 128, 2, '2025-06-16 09:11:07', 0, 'resuelto');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `temas`
+--
+
+CREATE TABLE `temas` (
+  `id` int(11) NOT NULL,
+  `asignatura_id` bigint(20) NOT NULL,
+  `nombre` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+
+--
+-- Volcado de datos para la tabla `temas`
+--
+
+INSERT INTO `temas` (`id`, `asignatura_id`, `nombre`) VALUES
+(1, 1, 'XPath');
 
 -- --------------------------------------------------------
 
@@ -426,9 +475,9 @@ CREATE TABLE `usuarios` (
   `apellido` varchar(100) DEFAULT NULL,
   `email` varchar(150) DEFAULT NULL,
   `password_hash` text DEFAULT NULL,
-  `tipo` varchar(20) DEFAULT NULL CHECK (`tipo` in ('alumno','profesor','admin')),
-  `fecha_registro` date DEFAULT curdate()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `tipo` varchar(20) DEFAULT NULL,
+  `fecha_registro` date DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
 -- Volcado de datos para la tabla `usuarios`
@@ -486,7 +535,15 @@ ALTER TABLE `cursos`
 -- Indices de la tabla `ejercicios`
 --
 ALTER TABLE `ejercicios`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `tema_id` (`tema_id`);
+
+--
+-- Indices de la tabla `ejercicios_propuestos`
+--
+ALTER TABLE `ejercicios_propuestos`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_ejercicio_tema` (`tema_id`);
 
 --
 -- Indices de la tabla `etiquetas`
@@ -546,11 +603,11 @@ ALTER TABLE `tareas_asignadas`
   ADD UNIQUE KEY `alumno_id` (`alumno_id`,`ejercicio_id`);
 
 --
--- Indices de la tabla `usuarios`
+-- Indices de la tabla `temas`
 --
-ALTER TABLE `usuarios`
+ALTER TABLE `temas`
   ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `email` (`email`);
+  ADD UNIQUE KEY `asignatura_id` (`asignatura_id`,`nombre`);
 
 --
 -- AUTO_INCREMENT de las tablas volcadas
@@ -575,6 +632,12 @@ ALTER TABLE `ejercicios`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
+-- AUTO_INCREMENT de la tabla `ejercicios_propuestos`
+--
+ALTER TABLE `ejercicios_propuestos`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
 -- AUTO_INCREMENT de la tabla `etiquetas`
 --
 ALTER TABLE `etiquetas`
@@ -593,40 +656,32 @@ ALTER TABLE `examenes`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- AUTO_INCREMENT de la tabla `matricula`
---
-ALTER TABLE `matricula`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
-
---
--- AUTO_INCREMENT de la tabla `profesor_asignatura`
---
-ALTER TABLE `profesor_asignatura`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
-
---
--- AUTO_INCREMENT de la tabla `resoluciones`
---
-ALTER TABLE `resoluciones`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=112;
-
---
--- AUTO_INCREMENT de la tabla `respuestas`
---
-ALTER TABLE `respuestas`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
-
---
 -- AUTO_INCREMENT de la tabla `tareas_asignadas`
 --
 ALTER TABLE `tareas_asignadas`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=59;
 
 --
--- AUTO_INCREMENT de la tabla `usuarios`
+-- AUTO_INCREMENT de la tabla `temas`
 --
-ALTER TABLE `usuarios`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=150;
+ALTER TABLE `temas`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- Restricciones para tablas volcadas
+--
+
+--
+-- Filtros para la tabla `ejercicios`
+--
+ALTER TABLE `ejercicios`
+  ADD CONSTRAINT `ejercicios_ibfk_1` FOREIGN KEY (`tema_id`) REFERENCES `temas` (`id`) ON DELETE SET NULL;
+
+--
+-- Filtros para la tabla `ejercicios_propuestos`
+--
+ALTER TABLE `ejercicios_propuestos`
+  ADD CONSTRAINT `fk_ejercicio_tema` FOREIGN KEY (`tema_id`) REFERENCES `temas` (`id`) ON DELETE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

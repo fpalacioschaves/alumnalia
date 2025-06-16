@@ -45,7 +45,7 @@ $etiquetas = $pdo->prepare("SELECT et.nombre AS etiqueta, ROUND(AVG(r.puntuacion
     JOIN etiquetas et ON e.etiqueta_id = et.id
     WHERE r.alumno_id = ?
     GROUP BY et.id
-    HAVING media <= 10
+    HAVING media <= 0.5
     ORDER BY media ASC");
 $etiquetas->execute([$alumno_id]);
 $debilidades = $etiquetas->fetchAll();
