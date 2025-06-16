@@ -20,7 +20,7 @@ require_once 'auth.php';
 <?php if (usuario_autenticado() && tipo_usuario() === 'admin'): ?>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <div class="container-fluid">
-    <a class="navbar-brand" href="dashboard.php">Admin</a>
+    <a class="navbar-brand" href="dashboard.php">Alumnalia</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#adminNav">
       <span class="navbar-toggler-icon"></span>
     </button>
