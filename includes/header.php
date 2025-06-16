@@ -31,7 +31,9 @@ require_once 'auth.php';
         <li class="nav-item"><a class="nav-link" href="profesores.php"><i class="bi bi-person-badge"></i> Profesores</a></li>
         <li class="nav-item"><a class="nav-link" href="cursos.php"><i class="bi bi-journal-bookmark"></i> Cursos</a></li>
         <li class="nav-item"><a class="nav-link" href="asignaturas.php"><i class="bi bi-journal-bookmark"></i> Asignaturas</a></li>
+        <li class="nav-item"><a class="nav-link" href="/admin/temas.php"><i class="bi bi-list-ul"></i> Temas</a></li>
         <li class="nav-item"><a class="nav-link" href="examenes.php"><i class="bi bi-file-earmark-text"></i> Exámenes</a></li>
+        <li class="nav-item"><a class="nav-link" href="ejercicios_propuestos.php"><i class="bi bi-lightbulb"></i> Ejercicios propuestos</a></li>
         <li class="nav-item"><a class="nav-link" href="etiquetas.php"><i class="bi bi-tags"></i> Etiquetas</a></li>
       </ul>
       <span class="navbar-text text-white me-3">

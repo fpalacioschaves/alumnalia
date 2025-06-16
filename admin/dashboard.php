@@ -54,12 +54,34 @@ require_once '../includes/header.php';
     </div>
 
     <div class="col-md-4 mb-4">
+        <div class="card shadow-sm h-100">
+            <div class="card-body text-center">
+            <i class="bi bi-list-ul display-4"></i>
+            <h5 class="card-title mt-2">Temas</h5>
+            <p class="card-text">Gestiona los temas asociados a cada asignatura.</p>
+            <a href="temas.php" class="btn btn-outline-primary btn-sm">Ver temas</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4 mb-4">
   <div class="card shadow-sm h-100">
     <div class="card-body text-center">
-      <i class="bi bi-tags" style="font-size: 2rem;"></i>
+      <i class="bi bi-lightbulb display-4"></i>
+      <h5 class="card-title mt-2">Ejercicios Propuestos</h5>
+      <p class="card-text">Colección de ejercicios para refuerzo, clasificados por tema y dificultad.</p>
+      <a href="ejercicios_propuestos.php" class="btn btn-outline-primary btn-sm">Ver ejercicios propuestos</a>
+    </div>
+  </div>
+</div>
+
+    <div class="col-md-4 mb-4">
+  <div class="card shadow-sm h-100">
+    <div class="card-body text-center">
+      <i class="bi bi-tags display-4"></i>
       <h5 class="card-title mt-2">Etiquetas</h5>
       <p class="card-text">Gestiona las etiquetas utilizadas para clasificar ejercicios.</p>
-      <a href="etiquetas.php" class="btn btn-outline-primary btn-sm">Acceder</a>
+      <a href="etiquetas.php" class="btn btn-outline-primary btn-sm">Ver etiquetas</a>
     </div>
   </div>
 </div>

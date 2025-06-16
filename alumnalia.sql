@@ -68,7 +68,7 @@ CREATE TABLE `asignaturas` (
   `nombre` varchar(100) NOT NULL,
   `descripcion` text DEFAULT NULL,
   `curso_id` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB   ;
 
 --
 -- Volcado de datos para la tabla `asignaturas`
