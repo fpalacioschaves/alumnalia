@@ -28,7 +28,7 @@ $alumnos = $stmt->fetchAll();
                 <th>Nombre</th>
                 <th>Email</th>
                 <th>Curso</th>
-                <th>Fecha Nacimiento</th>
+              <!--  <th>Fecha Nacimiento</th> --->
                 <th>Acciones</th>
             </tr>
         </thead>
@@ -38,7 +38,7 @@ $alumnos = $stmt->fetchAll();
                 <td><?= htmlspecialchars($al['nombre'] . ' ' . $al['apellido']) ?></td>
                 <td><?= htmlspecialchars($al['email']) ?></td>
                 <td><?= htmlspecialchars($al['curso']) ?></td>
-                <td><?= htmlspecialchars($al['fecha_nacimiento']) ?></td>
+             <!--   <td><?= htmlspecialchars($al['fecha_nacimiento']) ?></td>-->
                 <td>
                     <a href="alumno_editar.php?id=<?= $al['id'] ?>" class="btn btn-warning btn-sm">
                         <i class="bi bi-pencil-square"></i>
@@ -52,7 +52,7 @@ $alumnos = $stmt->fetchAll();
                     <a href="alumno_refuerzo.php?id=<?= $al['id'] ?>" class="btn btn-outline-info btn-sm">
                         <i class="bi bi-lightbulb"></i> Debilidades
                     </a>
-                    <a class="nav-link" href="tareas_alumno.php?id=<?= $al['id'] ?>">
+                    <a href="tareas_alumno.php?id=<?= $al['id'] ?>"  class="btn btn-outline-info btn-sm">
                         <i class="bi bi-journal-check"></i> Refuerzo
                     </a>
 

@@ -13,6 +13,9 @@ $etiqueta_id = $_GET['etiqueta_id'] ?? null;
 $dificultad = $_GET['dificultad'] ?? null;
 $alumno_id = $_GET['alumno_id'] ?? null;
 
+$ejercicios_disponibles = [];
+$ejercicios_asignados = [];
+
 // Obtener datos del alumno
 $stmt = $pdo->prepare("
     SELECT u.nombre, u.apellido, c.nombre AS curso
@@ -28,10 +31,22 @@ if (!$alumno) {
     exit;
 }
 
-$ejercicios_disponibles = [];
-$ejercicios_asignados = [];
+// Obtener datos del alumno
+$stmt = $pdo->prepare("
+    SELECT u.nombre, u.apellido, c.nombre AS curso
+    FROM alumnos a
+    JOIN usuarios u ON a.id = u.id
+    JOIN cursos c ON a.curso_id = c.id
+    WHERE a.id = ?
+");
+$stmt->execute([$alumno_id]);
+$alumno = $stmt->fetch();
+if (!$alumno) {
+    header("Location: alumnos.php");
+    exit;
+}
 
-if ($alumno_id && ($tema_id || $etiqueta_id || $dificultad)) {
+if ($alumno_id) {
     $sql = "SELECT ep.id, ep.enunciado FROM ejercicios_propuestos ep WHERE 1";
     $params = [];
 
@@ -67,7 +82,7 @@ if ($alumno_id && ($tema_id || $etiqueta_id || $dificultad)) {
 require_once '../includes/header.php';
 ?>
 
-<h2 class="mt-4">Asignar Ejercicios Propuestos a <?= $alumno['apellido'] . ', ' . $alumno['nombre'] ?></h2>
+<h2 class="mt-4">Asignar Ejercicios a <?= $alumno['apellido'] ?>, <?= $alumno['nombre'] ?></h2>
 
 <form method="GET" class="row g-3 mb-4">
     <input type="hidden" name="alumno_id" value="<?= $alumno_id ?>">
