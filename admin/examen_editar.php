@@ -30,12 +30,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $asignatura_id = $_POST['asignatura_id'] ?? null;
     $tipo = $_POST['tipo'] ?? '';
     $fecha = $_POST['fecha'] ?? null;
+    $hora = $_POST['hora'] ?? null;
     $descripcion = trim($_POST['descripcion'] ?? '');
 
-    if ($titulo && $asignatura_id && $tipo && $fecha) {
-        $stmt = $pdo->prepare("UPDATE examenes SET titulo = ?, asignatura_id = ?, tipo = ?, fecha = ?, descripcion = ? WHERE id = ?");
-        $stmt->execute([$titulo, $asignatura_id, $tipo, $fecha, $descripcion, $examen_id]);
-
+    if ($titulo && $asignatura_id && $tipo && $fecha && $hora) {
+        $stmt = $pdo->prepare("UPDATE examenes SET titulo = ?, asignatura_id = ?, tipo = ?, fecha = ?, hora = ?, descripcion = ? WHERE id = ?");
+        $stmt->execute([$titulo, $asignatura_id, $tipo, $fecha, $hora, $descripcion, $examen_id]);
         header("Location: examenes.php");
         exit;
     } else {
@@ -79,10 +79,22 @@ require_once '../includes/header.php';
             <?php endforeach; ?>
         </select>
     </div>
-    <div class="mb-3">
+   <!-- <div class="mb-3">
         <label>Fecha:</label>
         <input type="date" name="fecha" class="form-control" value="<?= $examen['fecha'] ?>" required>
+    </div>-->
+    <div class="row mb-3">
+    <div class="col-md-6">
+        <label>Fecha:</label>
+        <input type="date" name="fecha" class="form-control"
+               value="<?= date('Y-m-d', strtotime($examen['fecha'])) ?>" required>
     </div>
+    <div class="col-md-6">
+        <label>Hora:</label>
+        <input type="time" name="hora" class="form-control"
+               value="<?= date('H:i', strtotime($examen['hora'])) ?>">
+    </div>
+</div>
     <div class="mb-3">
         <label>Descripción:</label>
         <textarea name="descripcion" class="form-control" rows="3"><?= htmlspecialchars($examen['descripcion']) ?></textarea>

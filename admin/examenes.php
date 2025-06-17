@@ -8,7 +8,7 @@ require_once '../includes/header.php';
 
 // Obtener todos los exámenes con nombre de asignatura
 $stmt = $pdo->query("
-    SELECT e.id, e.titulo, e.tipo, e.fecha, a.nombre AS asignatura
+    SELECT e.id, e.titulo, e.tipo, e.fecha, e.hora, a.nombre AS asignatura
     FROM examenes e
     LEFT JOIN asignaturas a ON e.asignatura_id = a.id
     ORDER BY e.fecha DESC, e.titulo
@@ -33,6 +33,7 @@ $examenes = $stmt->fetchAll();
             <th>Asignatura</th>
             <th>Tipo</th>
             <th>Fecha</th>
+             <th>Hora</th>
             <th>Acciones</th>
         </tr>
     </thead>
@@ -43,6 +44,7 @@ $examenes = $stmt->fetchAll();
             <td><?= htmlspecialchars($ex['asignatura']) ?></td>
             <td><?= htmlspecialchars($ex['tipo']) ?></td>
             <td><?= htmlspecialchars($ex['fecha']) ?></td>
+            <td><?= htmlspecialchars(substr($ex['hora'], 0, 5)) ?></td>
             <td>
                 <a href="examen_editar.php?id=<?= $ex['id'] ?>" class="btn btn-warning btn-sm">
                     <i class="bi bi-pencil-square"></i>
@@ -53,6 +55,10 @@ $examenes = $stmt->fetchAll();
                 <a href="ejercicios.php?examen_id=<?= $ex['id'] ?>" class="btn btn-info btn-sm">
                     <i class="bi bi-list-task"></i> Ejercicios
                 </a>
+                 <a href="examen_agregar_banco.php?examen_id=<?= $ex['id'] ?>" class="btn btn-info btn-sm">
+                    <i class="bi bi-list-task"></i> Banco de Preguntas
+                </a>
+                
                 <a href="calificaciones.php?examen_id=<?= $ex['id'] ?>" class="btn btn-outline-primary btn-sm">
                     <i class="bi bi-clipboard-check"></i> Calificaciones
                 </a>

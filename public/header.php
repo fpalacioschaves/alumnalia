@@ -33,6 +33,9 @@ $apellido = $_SESSION['user_apellido'] ?? '';
                 <li class="nav-item">
                     <a class="nav-link" href="tareas_alumno.php"><i class="bi bi-journal-check"></i> Ejercicios</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="calendario.php"><i class="bi bi-calendar"></i> Calendario</a>
+                </li>
             </ul>
             <span class="navbar-text me-3">
                 <?= htmlspecialchars($_SESSION['user_nombre']) ?>

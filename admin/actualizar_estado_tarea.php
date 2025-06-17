@@ -4,10 +4,14 @@ require_once '../includes/auth.php';
 
 redirigir_si_no_autenticado();
 solo_admin();
+var_dump($_POST);
 
+$tarea_id = $_POST['tarea_id'] ?? null;
 $alumno_id = $_POST['alumno_id'] ?? null;
-$enunciado = $_POST['enunciado'] ?? '';
-$nuevo_estado = $_POST['estado'] ?? 'sin_enviar';
+$estado = $_POST['estado'] ?? null;
+$enunciado = $_POST['enunciado'] ?? null;
+$fecha_limite_entrega = $_POST['fecha_limite_entrega'] ?? null;
+
 
 if (!$alumno_id || !$enunciado) {
     die("Parámetros inválidos.");
@@ -23,12 +27,8 @@ if (!$ejercicio) {
 }
 
 // Actualizar estado
-$stmt = $pdo->prepare("
-    UPDATE tareas_asignadas
-    SET estado = ?
-    WHERE alumno_id = ? AND ejercicio_id = ?
-");
-$stmt->execute([$nuevo_estado, $alumno_id, $ejercicio['id']]);
+$stmt = $pdo->prepare("UPDATE tareas_asignadas SET estado = ?, fecha_limite_entrega = ? WHERE id = ? AND alumno_id = ?");
+$stmt->execute([$estado, $fecha_limite_entrega, $tarea_id, $alumno_id]);
 
 header("Location: asignacion_manual.php?alumno_id=$alumno_id");
 exit;

@@ -38,6 +38,18 @@ require_once 'header.php';
                 </div>
             </div>
         </div>
+
+        <div class="col-md-6 mb-4">
+            <div class="card shadow-sm h-100">
+                <div class="card-body text-center">
+                     <i class="bi bi-calendar-event" style="font-size: 2rem;"></i>
+                    <h5 class="card-title">Calendario</h5>
+                    <p class="card-text">Visualiza tus exámenes y fechas de entrega en un calendario.</p>
+                    <a href="calendario.php" class="btn btn-outline-primary btn-sm">Ver calendario
+                    </a>
+                </div>
+            </div>
+        </div>
     </div>
 
     <a href="logout.php" class="btn btn-outline-secondary mt-3">Cerrar sesión</a>

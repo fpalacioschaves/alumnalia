@@ -96,6 +96,29 @@ require_once '../includes/header.php';
             </div>
         </div>
     </div>
+
+      <div class="col-md-4">
+     <div class="card border-warning h-100" style="height: 250px !important;">
+        <div class="card-body text-center">
+            <i class="bi bi-journals display-4 text-warning"></i>
+             <h5 class="card-title mt-3">Banco de Preguntas</h5>
+              <p class="card-text">Banco de preguntas de elección múltiple</p>
+            <a href="banco_preguntas.php" class="btn btn-warning">Gestionar Banco de Preguntas</a>
+        </div>
+    </div>
+</div>
+
+    <div class="col-md-4">
+        <div class="card border-dark h-100" style="height: 250px !important;">
+            <div class="card-body text-center">
+                <i class="bi bi-shuffle display-4 text-dark"></i>
+                <h5 class="card-title mt-3">Generar Examen</h5>
+                <p class="card-text">Crear un examen automáticamente a partir del banco de preguntas.</p>
+                <a href="generar_examen.php" class="btn btn-dark">Generar examen</a>
+            </div>
+        </div>
+    </div>
+
 </div>
 
 <?php require_once '../includes/footer.php'; ?>

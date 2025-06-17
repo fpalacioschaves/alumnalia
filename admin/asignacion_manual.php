@@ -74,7 +74,12 @@ if ($alumno_id) {
     $ejercicios_disponibles = $stmt->fetchAll();
 
     // obtener ya asignados
-    $stmt = $pdo->prepare("SELECT ta.*, ep.enunciado FROM tareas_asignadas ta JOIN ejercicios_propuestos ep ON ta.ejercicio_id = ep.id WHERE ta.alumno_id = ?");
+    $stmt = $pdo->prepare("
+    SELECT ta.id, ta.estado, ta.fecha_limite_entrega, ep.enunciado
+    FROM tareas_asignadas ta
+    JOIN ejercicios_propuestos ep ON ta.ejercicio_id = ep.id
+    WHERE ta.alumno_id = ?
+    ");
     $stmt->execute([$alumno_id]);
     $ejercicios_asignados = $stmt->fetchAll();
 }
@@ -146,6 +151,7 @@ require_once '../includes/header.php';
             <tr>
                 <th>Enunciado</th>
                 <th>Estado</th>
+                <th>Fecha Límite de Entrega</th>
                 <th>Actualizar</th>
             </tr>
         </thead>
@@ -156,12 +162,17 @@ require_once '../includes/header.php';
                     <td>
                         <form method="POST" action="actualizar_estado_tarea.php" class="d-flex align-items-center gap-2">
                             <input type="hidden" name="alumno_id" value="<?= $alumno_id ?>">
+                            <input type="hidden" name="tarea_id" value="<?= $asig['id'] ?>">
                             <input type="hidden" name="enunciado" value="<?= htmlspecialchars($asig['enunciado']) ?>">
                             <select name="estado" class="form-select form-select-sm">
                                 <option value="sin_enviar" <?= $asig['estado'] === 'sin_enviar' ? 'selected' : '' ?>>Sin enviar</option>
                                 <option value="enviado" <?= $asig['estado'] === 'enviado' ? 'selected' : '' ?>>Enviado</option>
                                 <option value="resuelto" <?= $asig['estado'] === 'resuelto' ? 'selected' : '' ?>>Resuelto</option>
                             </select>
+                    </td>
+                    <td>
+                            <input type="date" name="fecha_limite_entrega" class="form-control form-control-sm"
+                            value="<?= htmlspecialchars($asig['fecha_limite_entrega']) ?>">
                     </td>
                     <td>
                             <button class="btn btn-sm btn-outline-primary" title="Actualizar estado">

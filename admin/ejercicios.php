@@ -21,16 +21,23 @@ if (!$examen) {
     exit;
 }
 
-// Obtener ejercicios
-$stmt = $pdo->prepare("
-    SELECT ej.id, ej.enunciado, ej.tipo, ej.puntuacion, ej.orden, et.nombre AS etiqueta
-    FROM ejercicios ej
-    LEFT JOIN etiquetas et ON ej.etiqueta_id = et.id
-    WHERE ej.examen_id = ?
-    ORDER BY ej.orden ASC
-");
+// Obtener ejercicios manuales
+$stmt = $pdo->prepare("SELECT ej.id, ej.enunciado, ej.tipo, ej.puntuacion, ej.orden, et.nombre AS etiqueta
+                       FROM ejercicios ej
+                       LEFT JOIN etiquetas et ON ej.etiqueta_id = et.id
+                       WHERE ej.examen_id = ?
+                       ORDER BY ej.orden ASC");
 $stmt->execute([$examen_id]);
 $ejercicios = $stmt->fetchAll();
+
+// Obtener ejercicios del banco de preguntas
+$stmt = $pdo->prepare("SELECT bp.id, bp.enunciado, 'test' AS tipo, NULL AS puntuacion, NULL AS orden, e.nombre AS etiqueta
+                       FROM banco_preguntas_en_examen bpe
+                       JOIN banco_preguntas bp ON bpe.pregunta_id = bp.id
+                       LEFT JOIN etiquetas e ON bp.etiqueta_id = e.id
+                       WHERE bpe.examen_id = ?");
+$stmt->execute([$examen_id]);
+$preguntas_banco = $stmt->fetchAll();
 
 require_once '../includes/header.php';
 ?>
@@ -39,6 +46,9 @@ require_once '../includes/header.php';
 
 <a href="ejercicio_nuevo.php?examen_id=<?= $examen_id ?>" class="btn btn-success mb-3">
     <i class="bi bi-plus-circle"></i> Nuevo ejercicio
+</a>
+<a href="examen_agregar_banco.php?examen_id=<?= $examen_id ?>" class="btn btn-outline-primary mb-3 ms-2">
+    <i class="bi bi-journals"></i> Añadir desde banco de preguntas
 </a>
 
 <table class="table table-bordered table-hover">
@@ -72,6 +82,21 @@ require_once '../includes/header.php';
                         <i class="bi bi-list-check"></i> Respuestas
                     </a>
                 <?php endif; ?>
+            </td>
+        </tr>
+        <?php endforeach; ?>
+
+        <?php foreach ($preguntas_banco as $b): ?>
+        <tr class="table-secondary">
+            <td>Banco</td>
+            <td><?= htmlspecialchars(mb_strimwidth($b['enunciado'], 0, 80, '...')) ?></td>
+            <td><?= ucfirst($b['tipo']) ?></td>
+            <td>—</td>
+            <td><?= htmlspecialchars($b['etiqueta'] ?? '—') ?></td>
+            <td>
+                <a href="pregunta_banco_eliminar.php?examen_id=<?= $examen_id ?>&pregunta_id=<?= $b['id'] ?>" class="btn btn-danger btn-sm" onclick="return confirm('¿Quitar esta pregunta del examen?');">
+                    <i class="bi bi-trash"></i>
+                </a>
             </td>
         </tr>
         <?php endforeach; ?>
