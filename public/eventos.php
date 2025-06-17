@@ -21,7 +21,8 @@ foreach ($stmt->fetchAll() as $examen) {
     $eventos[] = [
         'title' => 'Examen: ' . $examen['titulo'],
         'start' => $examen['fecha'],
-        'color' => '#e63946',
+        'tipo'  => 'examen',
+        'color' => '#457b9d',
        // 'url' => "../admin/examen_editar.php?id=" . $examen['id']
     ];
 }
@@ -36,7 +37,8 @@ foreach ($stmt->fetchAll() as $tarea) {
     $eventos[] = [
         'title' => 'Entrega: ' . mb_strimwidth($tarea['enunciado'], 0, 30, '...'),
         'start' => $tarea['fecha_limite_entrega'],
-        'color' => '#1d3557',
+        'tipo'  => 'entrega',
+        'color' => '#e63946',
     ];
 }
 

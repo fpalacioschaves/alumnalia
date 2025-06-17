@@ -36,8 +36,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if ($condiciones) {
             $sql .= " WHERE " . implode(" AND ", $condiciones);
         }
-        $sql .= " ORDER BY RAND() LIMIT ?";
-        $parametros[] = $cantidad;
+        $sql .= " ORDER BY RAND() LIMIT " . (int)$cantidad;
+       // $parametros[] = $cantidad;
 
         $stmt = $pdo->prepare($sql);
         $stmt->execute($parametros);
