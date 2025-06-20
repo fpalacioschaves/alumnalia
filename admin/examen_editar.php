@@ -32,10 +32,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $fecha = $_POST['fecha'] ?? null;
     $hora = $_POST['hora'] ?? null;
     $descripcion = trim($_POST['descripcion'] ?? '');
+    $evaluacion = $_POST['evaluacion'] ?? 1;
+
 
     if ($titulo && $asignatura_id && $tipo && $fecha && $hora) {
-        $stmt = $pdo->prepare("UPDATE examenes SET titulo = ?, asignatura_id = ?, tipo = ?, fecha = ?, hora = ?, descripcion = ? WHERE id = ?");
-        $stmt->execute([$titulo, $asignatura_id, $tipo, $fecha, $hora, $descripcion, $examen_id]);
+        $stmt = $pdo->prepare("UPDATE examenes SET titulo = ?, asignatura_id = ?, tipo = ?, fecha = ?, hora = ?, descripcion = ?, evaluacion = ? WHERE id = ?");
+        $stmt->execute([$titulo, $asignatura_id, $tipo, $fecha, $hora, $descripcion, $evaluacion, $examen_id]);
         header("Location: examenes.php");
         exit;
     } else {
@@ -79,26 +81,33 @@ require_once '../includes/header.php';
             <?php endforeach; ?>
         </select>
     </div>
-   <!-- <div class="mb-3">
-        <label>Fecha:</label>
-        <input type="date" name="fecha" class="form-control" value="<?= $examen['fecha'] ?>" required>
-    </div>-->
+
     <div class="row mb-3">
-    <div class="col-md-6">
-        <label>Fecha:</label>
-        <input type="date" name="fecha" class="form-control"
-               value="<?= date('Y-m-d', strtotime($examen['fecha'])) ?>" required>
+        <div class="col-md-6">
+            <label>Fecha:</label>
+            <input type="date" name="fecha" class="form-control"
+                value="<?= date('Y-m-d', strtotime($examen['fecha'])) ?>" required>
+        </div>
+        <div class="col-md-6">
+            <label>Hora:</label>
+            <input type="time" name="hora" class="form-control"
+                value="<?= date('H:i', strtotime($examen['hora'])) ?>">
+        </div>
     </div>
-    <div class="col-md-6">
-        <label>Hora:</label>
-        <input type="time" name="hora" class="form-control"
-               value="<?= date('H:i', strtotime($examen['hora'])) ?>">
+        <div class="mb-3">
+            <label>Descripción:</label>
+            <textarea name="descripcion" class="form-control" rows="3"><?= htmlspecialchars($examen['descripcion']) ?></textarea>
     </div>
+
+
+<div class="mb-3">
+    <label>Evaluación:</label>
+    <select name="evaluacion" class="form-select" required>
+        <option value="1" <?= ($examen['evaluacion'] ?? 1) == 1 ? 'selected' : '' ?>>Evaluación 1</option>
+        <option value="2" <?= ($examen['evaluacion'] ?? 1) == 2 ? 'selected' : '' ?>>Evaluación 2</option>
+        <option value="3" <?= ($examen['evaluacion'] ?? 1) == 3 ? 'selected' : '' ?>>Evaluación 3</option>
+    </select>
 </div>
-    <div class="mb-3">
-        <label>Descripción:</label>
-        <textarea name="descripcion" class="form-control" rows="3"><?= htmlspecialchars($examen['descripcion']) ?></textarea>
-    </div>
 
     <button class="btn btn-primary">Guardar cambios</button>
     <a href="examenes.php" class="btn btn-secondary">Cancelar</a>

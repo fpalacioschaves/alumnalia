@@ -39,10 +39,10 @@ require_once '../includes/header.php';
                 <td><?= htmlspecialchars($p['tema'] ?? '-') ?></td>
                 <td><?= htmlspecialchars($p['etiqueta'] ?? '-') ?></td>
                 <td>
-                    <a href="banco_pregunta_editar.php?id=<?= $p['id'] ?>" class="btn btn-sm btn-warning">
+                    <a href="banco_preguntas_editar.php?id=<?= $p['id'] ?>" class="btn btn-sm btn-warning">
                         <i class="bi bi-pencil"></i>
                     </a>
-                    <a href="banco_pregunta_eliminar.php?id=<?= $p['id'] ?>" class="btn btn-sm btn-danger" onclick="return confirm('Eliminar esta pregunta?')">
+                    <a href="banco_preguntas_eliminar.php?id=<?= $p['id'] ?>" class="btn btn-sm btn-danger" onclick="return confirm('Eliminar esta pregunta?')">
                         <i class="bi bi-trash"></i>
                     </a>
                 </td>

@@ -29,14 +29,42 @@ require_once 'auth.php';
         <li class="nav-item"><a class="nav-link" href="dashboard.php"><i class="bi bi-house"></i> Inicio</a></li>
         <li class="nav-item"><a class="nav-link" href="alumnos.php"><i class="bi bi-people"></i> Alumnos</a></li>
         <li class="nav-item"><a class="nav-link" href="profesores.php"><i class="bi bi-person-badge"></i> Profesores</a></li>
-        <li class="nav-item"><a class="nav-link" href="cursos.php"><i class="bi bi-journal-bookmark"></i> Cursos</a></li>
-        <li class="nav-item"><a class="nav-link" href="asignaturas.php"><i class="bi bi-journal-bookmark"></i> Asignaturas</a></li>
-        <li class="nav-item"><a class="nav-link" href="temas.php"><i class="bi bi-list-ul"></i> Temas</a></li>
-        <li class="nav-item"><a class="nav-link" href="examenes.php"><i class="bi bi-file-earmark-text"></i> Exámenes</a></li>
-        <li class="nav-item"><a class="nav-link" href="ejercicios_propuestos.php"><i class="bi bi-lightbulb"></i> Ejercicios propuestos</a></li>
-        <li class="nav-item"><a class="nav-link" href="etiquetas.php"><i class="bi bi-tags"></i> Etiquetas</a></li>
-        <li class="nav-item"><a class="nav-link" href="banco_preguntas.php"><i class="bi bi-collection"></i> Banco de Preguntas</a></li>
-        <li class="nav-item"><a class="nav-link" href="generar_examen.php"><i class="bi bi-shuffle"></i> Generar Examen</a></li>
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="estructuraDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="bi bi-diagram-3"></i> Estructura Académica
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="estructuraDropdown">
+                <li><a class="dropdown-item" href="cursos.php">Cursos</a></li>
+                <li><a class="dropdown-item" href="asignaturas.php">Asignaturas</a></li>
+                <li><a class="dropdown-item" href="temas.php">Temas</a></li>
+                <li><a class="dropdown-item" href="etiquetas.php">Etiquetas</a></li>
+            </ul>
+        </li>
+
+          <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="evaluacionDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <i class="bi bi-journals"></i> Evaluaciones
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="evaluacionDropdown">
+            <li><a class="dropdown-item" href="examenes.php">Exámenes</a></li>
+            <li><a class="dropdown-item" href="ejercicios_propuestos.php">Ejercicios Propuestos</a></li>
+            <li><a class="dropdown-item" href="banco_preguntas.php">Banco de Preguntas</a></li>
+            <li><a class="dropdown-item" href="generar_examen.php">Generar Examen</a></li>
+          </ul>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" href="actividades.php"><i class=" bi-clipboard-data"></i> Actividades</a>
+        </li>
+
+
+       
+
+         <li class="nav-item">
+          <a class="nav-link" href="panel_indicadores.php"><i class="bi bi-bar-chart-line"></i> Indicadores</a>
+        </li>
+
+
       </ul>
       <span class="navbar-text text-white me-3">
         <?= $_SESSION['user_nombre'] ?? 'Administrador' ?>

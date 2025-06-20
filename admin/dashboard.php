@@ -119,6 +119,17 @@ require_once '../includes/header.php';
         </div>
     </div>
 
+    <div class="col-md-4">
+        <div class="card border-primary h-100" style="height: 250px !important;">
+            <div class="card-body text-center">
+                <i class="bi bi-clipboard-data display-4 text-primary"></i>
+                <h5 class="card-title mt-3">Actividades</h5>
+                <p class="card-text">Gestión de actividades y entregas por curso y asignatura</p>
+                <a href="actividades.php" class="btn btn-primary">Ver actividades</a>
+            </div>
+        </div>
+    </div>
+
 </div>
 
 <?php require_once '../includes/footer.php'; ?>

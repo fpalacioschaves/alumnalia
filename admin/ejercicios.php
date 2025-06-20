@@ -31,7 +31,7 @@ $stmt->execute([$examen_id]);
 $ejercicios = $stmt->fetchAll();
 
 // Obtener ejercicios del banco de preguntas
-$stmt = $pdo->prepare("SELECT bp.id, bp.enunciado, 'test' AS tipo, NULL AS puntuacion, NULL AS orden, e.nombre AS etiqueta
+$stmt = $pdo->prepare("SELECT bp.id, bp.enunciado, 'test' AS tipo, puntuacion AS puntuacion, NULL AS orden, e.nombre AS etiqueta
                        FROM banco_preguntas_en_examen bpe
                        JOIN banco_preguntas bp ON bpe.pregunta_id = bp.id
                        LEFT JOIN etiquetas e ON bp.etiqueta_id = e.id
@@ -91,7 +91,17 @@ require_once '../includes/header.php';
             <td>Banco</td>
             <td><?= htmlspecialchars(mb_strimwidth($b['enunciado'], 0, 80, '...')) ?></td>
             <td><?= ucfirst($b['tipo']) ?></td>
-            <td>—</td>
+            <!-- Aqui van los puntos del ejercicio del banco -->
+            <td>
+                <form method="POST" action="valorar_ejercicio_banco_en_examen.php" style="display:inline-block; width:60px">
+                    <input type="hidden" name="examen_id" value="<?= $examen_id ?>">
+                    <input type="hidden" name="ejercicio_id" value="<?= $b['id'] ?>">
+                    <input type="number" step="0.05" min="0" name="nota" value="<?= $b['puntuacion'] !== false ? $b['puntuacion']: '' ?>" class="form-control form-control-sm text-center" onchange="this.form.submit();">
+                </form>
+            </td>
+
+            <!-- Fin de los puntos del ejercicio del banco -->
+
             <td><?= htmlspecialchars($b['etiqueta'] ?? '—') ?></td>
             <td>
                 <a href="pregunta_banco_eliminar.php?examen_id=<?= $examen_id ?>&pregunta_id=<?= $b['id'] ?>" class="btn btn-danger btn-sm" onclick="return confirm('¿Quitar esta pregunta del examen?');">

@@ -37,14 +37,14 @@ $stmt = $pdo->prepare("
 $stmt->execute([$alumno['curso_id']]);
 $examenes = $stmt->fetchAll();
 
-// Obtener calificaciones por ejercicio
+// Obtener calificaciones finales del alumno
 $stmt = $pdo->prepare("
-    SELECT ejercicio_id, puntuacion_obtenida
-    FROM resoluciones
+    SELECT examen_id, nota_total
+    FROM notas_examen_alumno
     WHERE alumno_id = ?
 ");
 $stmt->execute([$alumno_id]);
-$resoluciones = $stmt->fetchAll(PDO::FETCH_GROUP | PDO::FETCH_COLUMN);
+$notas_finales = $stmt->fetchAll(PDO::FETCH_KEY_PAIR);
 
 // Obtener máximos por examen
 $maximos = [];
@@ -66,31 +66,31 @@ require_once '../includes/header.php';
             <th>Asignatura</th>
             <th>Fecha</th>
             <th>Tipo</th>
-            <th>Nota / Máx</th>
-            <th>%</th>
+            <th>Nota</th>
+     
             <th>Detalle</th>
         </tr>
     </thead>
     <tbody>
         <?php foreach ($examenes as $ex): 
-            $total = 0;
-            $max = 0;
-            if (isset($maximos[$ex['id']])) {
-                foreach ($maximos[$ex['id']] as $eid => $pmax) {
-                    $nota = $resoluciones[$eid][0] ?? 0;
-                    $total += $nota;
-                    $max += $pmax;
-                }
+            $total = $notas_finales[$ex['id']] ?? null;
+
+            if ($total !== null) {
+               
+                
+             
+            } else {
+                $total = 0;
+            
             }
-            $porcentaje = $max > 0 ? round(($total / $max) * 100, 1) : 0;
         ?>
         <tr>
             <td><?= htmlspecialchars($ex['titulo']) ?></td>
             <td><?= htmlspecialchars($ex['asignatura']) ?></td>
             <td><?= htmlspecialchars($ex['fecha']) ?></td>
             <td><?= ucfirst($ex['tipo']) ?></td>
-            <td><?= number_format($total, 2) ?> / <?= number_format($max, 2) ?></td>
-            <td><?= $max > 0 ? $porcentaje . '%' : '—' ?></td>
+            <td><?= number_format($total, 2) ?></td>
+         
             <td>
                 <a href="calificaciones.php?examen_id=<?= $ex['id'] ?>" class="btn btn-outline-primary btn-sm">
                     <i class="bi bi-clipboard-check"></i> Ver

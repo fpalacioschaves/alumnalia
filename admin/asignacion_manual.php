@@ -31,20 +31,6 @@ if (!$alumno) {
     exit;
 }
 
-// Obtener datos del alumno
-$stmt = $pdo->prepare("
-    SELECT u.nombre, u.apellido, c.nombre AS curso
-    FROM alumnos a
-    JOIN usuarios u ON a.id = u.id
-    JOIN cursos c ON a.curso_id = c.id
-    WHERE a.id = ?
-");
-$stmt->execute([$alumno_id]);
-$alumno = $stmt->fetch();
-if (!$alumno) {
-    header("Location: alumnos.php");
-    exit;
-}
 
 if ($alumno_id) {
     $sql = "SELECT ep.id, ep.enunciado FROM ejercicios_propuestos ep WHERE 1";

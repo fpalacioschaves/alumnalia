@@ -15,12 +15,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $asignatura_id = $_POST['asignatura_id'] ?? null;
     $tipo = $_POST['tipo'] ?? '';
     $fecha = $_POST['fecha'] ?? null;
+    $hora = $_POST['hora'] ?? null;
     $descripcion = trim($_POST['descripcion'] ?? '');
 
-    if ($titulo && $asignatura_id && $tipo && $fecha) {
-        $stmt = $pdo->prepare("INSERT INTO examenes (titulo, asignatura_id, tipo, fecha, descripcion) VALUES (?, ?, ?, ?, ?)");
-        $stmt->execute([$titulo, $asignatura_id, $tipo, $fecha, $descripcion]);
+    $evaluacion = $_POST['evaluacion'] ?? 1;
 
+    if ($titulo && $asignatura_id && $tipo && $fecha) {
+        $stmt = $pdo->prepare("INSERT INTO examenes (titulo, asignatura_id, tipo, fecha, hora, descripcion, evaluacion) VALUES (?, ?, ?, ?, ?, ?, ?)");
+        $stmt->execute([$titulo, $asignatura_id, $tipo, $fecha, $hora, $descripcion, $evaluacion]);
         header("Location: examenes.php");
         exit;
     } else {
@@ -61,13 +63,30 @@ require_once '../includes/header.php';
             <option value="final">Final</option>
         </select>
     </div>
-    <div class="mb-3">
-        <label>Fecha:</label>
-        <input type="date" name="fecha" class="form-control" required>
+     <div class="row mb-3">
+        <div class="col-md-6">
+            <label>Fecha:</label>
+            <input type="date" name="fecha" class="form-control" required>
+        </div>
+        <div class="col-md-6">
+            <label>Hora:</label>
+            <input type="time" name="hora" class="form-control" required>
+        </div>
     </div>
     <div class="mb-3">
         <label>Descripción (opcional):</label>
         <textarea name="descripcion" class="form-control" rows="3"></textarea>
+    </div>
+
+
+
+    <div class="mb-3">
+        <label>Evaluación:</label>
+        <select name="evaluacion" class="form-select" required>
+            <option value="1">Evaluación 1</option>
+            <option value="2">Evaluación 2</option>
+            <option value="3">Evaluación 3</option>
+        </select>
     </div>
     <button class="btn btn-primary">Guardar</button>
     <a href="examenes.php" class="btn btn-secondary">Cancelar</a>

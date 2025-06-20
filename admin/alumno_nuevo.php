@@ -33,7 +33,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $nuevo_id = $pdo->lastInsertId();
 
         // Insertar en alumnos
-        $stmt = $pdo->prepare("INSERT INTO alumnos (id, curso_id, fecha_nacimiento) VALUES (?, ?, ?)");
+        $stmt = $pdo->prepare("INSERT INTO alumnos (id, curso_id) VALUES (?, ?)");
         $stmt->execute([$nuevo_id, $curso_id, $fecha_nacimiento]);
 
         header("Location: alumnos.php");
@@ -75,10 +75,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <?php endforeach; ?>
             </select>
         </div>
-        <div class="mb-3">
-            <label>Fecha de nacimiento:</label>
-            <input type="date" name="fecha_nacimiento" class="form-control">
-        </div>
+
         <button class="btn btn-primary">Guardar</button>
         <a href="alumnos.php" class="btn btn-secondary">Cancelar</a>
     </form>

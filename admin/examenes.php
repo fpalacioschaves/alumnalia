@@ -8,7 +8,7 @@ require_once '../includes/header.php';
 
 // Obtener todos los exámenes con nombre de asignatura
 $stmt = $pdo->query("
-    SELECT e.id, e.titulo, e.tipo, e.fecha, e.hora, a.nombre AS asignatura
+    SELECT e.id, e.titulo, e.tipo, e.fecha, e.hora, e.evaluacion, a.nombre AS asignatura
     FROM examenes e
     LEFT JOIN asignaturas a ON e.asignatura_id = a.id
     ORDER BY e.fecha DESC, e.titulo
@@ -34,6 +34,7 @@ $examenes = $stmt->fetchAll();
             <th>Tipo</th>
             <th>Fecha</th>
              <th>Hora</th>
+             <th>Evaluación</th>
             <th>Acciones</th>
         </tr>
     </thead>
@@ -45,6 +46,7 @@ $examenes = $stmt->fetchAll();
             <td><?= htmlspecialchars($ex['tipo']) ?></td>
             <td><?= htmlspecialchars($ex['fecha']) ?></td>
             <td><?= htmlspecialchars(substr($ex['hora'], 0, 5)) ?></td>
+            <td><?= $ex['evaluacion'] ?></td>
             <td>
                 <a href="examen_editar.php?id=<?= $ex['id'] ?>" class="btn btn-warning btn-sm">
                     <i class="bi bi-pencil-square"></i>

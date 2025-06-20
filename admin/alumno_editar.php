@@ -12,7 +12,7 @@ if (!$alumno_id || !is_numeric($alumno_id)) {
 }
 
 // Obtener datos del alumno
-$stmt = $pdo->prepare("SELECT u.id, u.nombre, u.apellido, u.email, a.curso_id, a.fecha_nacimiento
+$stmt = $pdo->prepare("SELECT u.id, u.nombre, u.apellido, u.email, a.curso_id
                        FROM usuarios u
                        JOIN alumnos a ON u.id = a.id
                        WHERE u.id = ?");
@@ -33,7 +33,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $apellido = $_POST['apellido'] ?? '';
     $email = $_POST['email'] ?? '';
     $curso_id = $_POST['curso_id'] ?? null;
-    $fecha_nacimiento = $_POST['fecha_nacimiento'] ?? '';
     $password = $_POST['password'] ?? '';
 
     // Actualizar usuarios
@@ -47,8 +46,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     // Actualizar alumnos
-    $stmt = $pdo->prepare("UPDATE alumnos SET curso_id = ?, fecha_nacimiento = ? WHERE id = ?");
-    $stmt->execute([$curso_id, $fecha_nacimiento, $alumno_id]);
+    $stmt = $pdo->prepare("UPDATE alumnos SET curso_id = ? WHERE id = ?");
+    $stmt->execute([$curso_id,$alumno_id]);
 
     header("Location: alumnos.php");
     exit;
@@ -86,10 +85,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <?php endforeach; ?>
             </select>
         </div>
-        <div class="mb-3">
-            <label>Fecha de nacimiento:</label>
-            <input type="date" name="fecha_nacimiento" value="<?= $alumno['fecha_nacimiento'] ?>" class="form-control" required>
-        </div>
+
 
         <button class="btn btn-primary">Guardar cambios</button>
         <a href="alumnos.php" class="btn btn-secondary">Cancelar</a>
