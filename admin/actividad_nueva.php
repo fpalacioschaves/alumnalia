@@ -17,10 +17,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $fecha_entrega = $_POST['fecha_entrega'] ?? null;
     $ponderacion = $_POST['ponderacion'] ?? 1.00;
     $descripcion = trim($_POST['descripcion'] ?? '');
+    $evaluacion = $_POST['evaluacion'] ?? 1;
 
-    if ($titulo && $curso_id && $asignatura_id && $fecha_entrega && $ponderacion) {
-        $stmt = $pdo->prepare("INSERT INTO actividades (titulo, curso_id, asignatura_id, fecha_entrega, ponderacion, descripcion) VALUES (?, ?, ?, ?, ?, ?)");
-        $stmt->execute([$titulo, $curso_id, $asignatura_id, $fecha_entrega, $ponderacion, $descripcion]);
+    if ($titulo && $curso_id && $asignatura_id && $fecha_entrega && $ponderacion !== '') {
+        $stmt = $pdo->prepare("INSERT INTO actividades (titulo, curso_id, asignatura_id, fecha_entrega, ponderacion, descripcion, evaluacion) VALUES (?, ?, ?, ?, ?, ?, ?)");
+        $stmt->execute([$titulo, $curso_id, $asignatura_id, $fecha_entrega, $ponderacion, $descripcion, $evaluacion]);
         header("Location: actividades.php");
         exit;
     } else {
@@ -58,6 +59,14 @@ require_once '../includes/header.php';
             <?php foreach ($asignaturas as $a): ?>
                 <option value="<?= $a['id'] ?>"><?= htmlspecialchars($a['nombre']) ?></option>
             <?php endforeach; ?>
+        </select>
+    </div>
+    <div class="mb-3">
+        <label>Evaluación:</label>
+        <select name="evaluacion" class="form-select" required>
+            <option value="1">Evaluación 1</option>
+            <option value="2">Evaluación 2</option>
+            <option value="3">Evaluación 3</option>
         </select>
     </div>
     <div class="mb-3">

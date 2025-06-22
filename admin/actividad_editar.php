@@ -33,10 +33,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $fecha_entrega = $_POST['fecha_entrega'] ?? null;
     $ponderacion = $_POST['ponderacion'] ?? 1.00;
     $descripcion = trim($_POST['descripcion'] ?? '');
+    $evaluacion = $_POST['evaluacion'] ?? 1;
 
-    if ($titulo && $curso_id && $asignatura_id && $fecha_entrega && $ponderacion) {
-        $stmt = $pdo->prepare("UPDATE actividades SET titulo = ?, curso_id = ?, asignatura_id = ?, fecha_entrega = ?, ponderacion = ?, descripcion = ? WHERE id = ?");
-        $stmt->execute([$titulo, $curso_id, $asignatura_id, $fecha_entrega, $ponderacion, $descripcion, $id]);
+    if ($titulo && $curso_id && $asignatura_id && $fecha_entrega && $ponderacion !== '') {
+        $stmt = $pdo->prepare("UPDATE actividades SET titulo = ?, curso_id = ?, asignatura_id = ?, fecha_entrega = ?, ponderacion = ?, descripcion = ?, evaluacion = ? WHERE id = ?");
+        $stmt->execute([$titulo, $curso_id, $asignatura_id, $fecha_entrega, $ponderacion, $descripcion, $evaluacion, $id]);
         header("Location: actividades.php");
         exit;
     } else {
@@ -78,6 +79,14 @@ require_once '../includes/header.php';
                     <?= htmlspecialchars($a['nombre']) ?>
                 </option>
             <?php endforeach; ?>
+        </select>
+    </div>
+    <div class="mb-3">
+        <label>Evaluación:</label>
+        <select name="evaluacion" class="form-select" required>
+            <option value="1" <?= $actividad['evaluacion'] == 1 ? 'selected' : '' ?>>Evaluación 1</option>
+            <option value="2" <?= $actividad['evaluacion'] == 2 ? 'selected' : '' ?>>Evaluación 2</option>
+            <option value="3" <?= $actividad['evaluacion'] == 3 ? 'selected' : '' ?>>Evaluación 3</option>
         </select>
     </div>
     <div class="mb-3">

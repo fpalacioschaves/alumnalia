@@ -5,8 +5,9 @@ redirigir_si_no_autenticado();
 solo_admin();
 require_once '../includes/header.php';
 
-// Obtener actividades con datos de curso y asignatura
-$stmt = $pdo->query("SELECT act.id, act.titulo, act.fecha_entrega, act.ponderacion, c.nombre AS curso, a.nombre AS asignatura
+// Obtener actividades con datos de curso, asignatura y evaluación
+$stmt = $pdo->query("SELECT act.id, act.titulo, act.fecha_entrega, act.ponderacion, act.evaluacion, 
+                            c.nombre AS curso, a.nombre AS asignatura
                       FROM actividades act
                       JOIN cursos c ON act.curso_id = c.id
                       JOIN asignaturas a ON act.asignatura_id = a.id
@@ -25,6 +26,7 @@ $actividades = $stmt->fetchAll();
             <th>Título</th>
             <th>Curso</th>
             <th>Asignatura</th>
+            <th>Evaluación</th>
             <th>Fecha de Entrega</th>
             <th>Ponderación</th>
             <th>Acciones</th>
@@ -36,6 +38,7 @@ $actividades = $stmt->fetchAll();
             <td><?= htmlspecialchars($act['titulo']) ?></td>
             <td><?= htmlspecialchars($act['curso']) ?></td>
             <td><?= htmlspecialchars($act['asignatura']) ?></td>
+            <td><?= htmlspecialchars($act['evaluacion']) ?></td>
             <td><?= htmlspecialchars($act['fecha_entrega']) ?></td>
             <td><?= htmlspecialchars($act['ponderacion']) ?></td>
             <td>

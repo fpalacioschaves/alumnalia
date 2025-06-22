@@ -47,19 +47,22 @@ require_once 'auth.php';
           </a>
           <ul class="dropdown-menu" aria-labelledby="evaluacionDropdown">
             <li><a class="dropdown-item" href="examenes.php">Exámenes</a></li>
+            <li><a class="dropdown-item" href="actividades.php">Actividades</a></li>
+            <li><a class="dropdown-item" href="ver_asistencia.php">Ver Asistencia</a></li>
             <li><a class="dropdown-item" href="ejercicios_propuestos.php">Ejercicios Propuestos</a></li>
             <li><a class="dropdown-item" href="banco_preguntas.php">Banco de Preguntas</a></li>
             <li><a class="dropdown-item" href="generar_examen.php">Generar Examen</a></li>
+
           </ul>
         </li>
 
-        <li class="nav-item">
-          <a class="nav-link" href="actividades.php"><i class=" bi-clipboard-data"></i> Actividades</a>
-        </li>
+       
 
         <li class="nav-item">
-          <a class="nav-link" href="evaluacion.php"><i class="bi bi-graph-up-arrow"></i> Evaluación</a>
+          <a class="nav-link" href="evaluaciones.php"><i class="bi bi-graph-up-arrow"></i> Evaluaciones</a>
         </li>
+
+        
 
          <li class="nav-item">
           <a class="nav-link" href="panel_indicadores.php"><i class="bi bi-bar-chart-line"></i> Indicadores</a>
