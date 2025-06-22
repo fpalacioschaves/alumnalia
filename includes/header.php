@@ -43,7 +43,7 @@ require_once 'auth.php';
 
           <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="evaluacionDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            <i class="bi bi-journals"></i> Evaluaciones
+            <i class="bi bi-journals"></i> Pruebas
           </a>
           <ul class="dropdown-menu" aria-labelledby="evaluacionDropdown">
             <li><a class="dropdown-item" href="examenes.php">Exámenes</a></li>
@@ -57,8 +57,9 @@ require_once 'auth.php';
           <a class="nav-link" href="actividades.php"><i class=" bi-clipboard-data"></i> Actividades</a>
         </li>
 
-
-       
+        <li class="nav-item">
+          <a class="nav-link" href="evaluacion.php"><i class="bi bi-graph-up-arrow"></i> Evaluación</a>
+        </li>
 
          <li class="nav-item">
           <a class="nav-link" href="panel_indicadores.php"><i class="bi bi-bar-chart-line"></i> Indicadores</a>

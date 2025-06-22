@@ -83,6 +83,60 @@ require_once '../includes/header.php';
         <i class="bi bi-save"></i> Guardar calificaciones
     </button>
     <a href="actividades.php" class="btn btn-secondary">← Volver</a>
+
+    <h4 class="mt-5">📊 Gráfico de notas de la actividad</h4>
+    <canvas id="graficoNotasActividad" height="120"></canvas>
 </form>
+
+<?php
+$labels = [];
+$dataNotas = [];
+$sumaNotas = 0;
+foreach ($alumnos as $al) {
+    $nombreCompleto = $al['apellido'] . ', ' . $al['nombre'];
+    $labels[] = $nombreCompleto;
+    $nota = $notas[$al['id']] ?? null;
+    if ($nota !== null) {
+        $dataNotas[] = $nota;
+        $sumaNotas += $nota;
+    } else {
+        $dataNotas[] = null;
+    }
+}
+$media = count(array_filter($dataNotas, fn($n) => $n !== null)) > 0 ? round($sumaNotas / count(array_filter($dataNotas, fn($n) => $n !== null)), 2) : 0;
+?>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const ctx = document.getElementById('graficoNotasActividad').getContext('2d');
+    new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: <?= json_encode($labels) ?>,
+            datasets: [
+                {
+                    label: 'Nota del alumno',
+                    data: <?= json_encode($dataNotas) ?>,
+                    backgroundColor: '#1d3557'
+                },
+                {
+                    label: 'Nota media de la clase',
+                    data: Array(<?= count($dataNotas) ?>).fill(<?= $media ?>),
+                    backgroundColor: 'rgba(230, 57, 70, 0.3)',
+                    type: 'line',
+                    borderColor: '#e63946',
+                    borderWidth: 2,
+                    fill: false
+                }
+            ]
+        },
+        options: {
+            scales: {
+                y: { beginAtZero: true, max: 10 }
+            }
+        }
+    });
+});
+</script>
 
 <?php require_once '../includes/footer.php'; ?>

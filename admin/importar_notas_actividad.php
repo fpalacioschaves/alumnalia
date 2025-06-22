@@ -6,14 +6,59 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
-
 redirigir_si_no_autenticado();
 solo_admin();
 
 $actividad_id = $_GET['id'] ?? null;
-if (!$actividad_id || !is_numeric($actividad_id)) {
-    header("Location: actividades.php");
-    exit;
+$mensaje = '';
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['archivo']) && $actividad_id) {
+    $archivo = $_FILES['archivo']['tmp_name'];
+    $contador = 0;
+
+    if (($handle = fopen($archivo, "r")) !== false) {
+        $linea = 0;
+        while (($data = fgetcsv($handle, 1000, ";")) !== false) {
+            $linea++;
+            if ($linea === 1) continue;
+
+            // var_dump($data);
+            // break para mostrar solo una línea y no saturar la salida
+            // break;
+
+            if (count($data) < 4) {
+                continue;
+            }
+
+            $nombre = trim($data[0]);
+            $apellido = trim($data[1]);
+            $email = strtolower(trim($data[2]));
+            $nota = str_replace(',', '.', trim($data[3]));
+
+            // Buscar alumno por email
+            $stmt = $pdo->prepare("
+                SELECT a.id FROM alumnos a
+                JOIN usuarios u ON a.id = u.id
+                WHERE u.email = ?
+            ");
+            $stmt->execute([$email]);
+            $alumno_id = $stmt->fetchColumn();
+
+            if ($alumno_id && is_numeric($nota)) {
+                $stmt = $pdo->prepare("
+                    INSERT INTO actividades_alumnos (actividad_id, alumno_id, nota)
+                    VALUES (?, ?, ?)
+                    ON DUPLICATE KEY UPDATE nota = VALUES(nota)
+                ");
+                $stmt->execute([$actividad_id, $alumno_id, $nota]);
+                $contador++;
+            }
+        }
+        fclose($handle);
+        $mensaje = "$contador calificaciones importadas correctamente.";
+    } else {
+        $mensaje = "No se pudo abrir el archivo.";
+    }
 }
 
 // Obtener actividad
@@ -27,43 +72,6 @@ $stmt = $pdo->prepare("
 $stmt->execute([$actividad_id]);
 $actividad = $stmt->fetch();
 
-if (!$actividad) {
-    header("Location: actividades.php");
-    exit;
-}
-
-$mensaje = '';
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['archivo']) && $_FILES['archivo']['error'] === 0) {
-    $csv = array_map('str_getcsv', file($_FILES['archivo']['tmp_name']));
-
-    unset($csv[0]);
-    $insertados = 0;
-    foreach ($csv as $fila) {
-        if (count($fila) >= 4) {
-            $email = trim($fila[2]);
-            $nota = floatval(str_replace(',', '.', $fila[3]));
-
-            echo $email . " - " . $nota . "<br>";
-
-            $stmt = $pdo->prepare("SELECT id FROM usuarios WHERE email = ?");
-            $stmt->execute([$email]);
-            $usuario = $stmt->fetch();
-
-            if ($usuario) {
-                $alumno_id = $usuario['id'];
-                $stmt = $pdo->prepare("
-                    INSERT INTO actividades_alumnos (actividad_id, alumno_id, puntuacion)
-                    VALUES (?, ?, ?)
-                    ON DUPLICATE KEY UPDATE puntuacion = VALUES(puntuacion)
-                ");
-                $stmt->execute([$actividad_id, $alumno_id, $nota]);
-                $insertados++;
-            }
-        }
-    }
-    $mensaje = "$insertados calificaciones importadas correctamente.";
-}
-
 require_once '../includes/header.php';
 ?>
 
@@ -73,13 +81,20 @@ require_once '../includes/header.php';
     <div class="alert alert-info"><?= htmlspecialchars($mensaje) ?></div>
 <?php endif; ?>
 
-<form method="POST" enctype="multipart/form-data">
-    <div class="mb-3">
-        <label class="form-label">Archivo CSV con columnas: nombre, apellidos, email, nota</label>
-        <input type="file" name="archivo" accept=".csv" class="form-control" required>
-    </div>
-    <button class="btn btn-primary"><i class="bi bi-upload"></i> Importar Calificaciones</button>
-    <a href="actividades.php" class="btn btn-secondary">Cancelar</a>
-</form>
+<?php if (!$actividad_id): ?>
+    <div class="alert alert-warning">No se ha indicado una actividad.</div>
+<?php else: ?>
+    <form method="POST" enctype="multipart/form-data">
+        <div class="mb-3">
+            <label for="archivo" class="form-label">Archivo CSV (nombre, apellido, email, nota)</label>
+            <input type="file" name="archivo" id="archivo" accept=".csv" class="form-control" required>
+        </div>
+        <button type="submit" class="btn btn-primary">
+            <i class="bi bi-upload"></i> Importar calificaciones
+        </button>
+    </form>
+<?php endif; ?>
+
+<a href="actividades.php" class="btn btn-secondary mt-4">← Volver a actividades</a>
 
 <?php require_once '../includes/footer.php'; ?>
