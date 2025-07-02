@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.1
+-- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
--- Servidor: 127.0.0.1
--- Tiempo de generación: 22-06-2025 a las 19:52:10
--- Versión del servidor: 10.4.32-MariaDB
--- Versión de PHP: 8.2.12
+-- Servidor: localhost:8889
+-- Tiempo de generación: 02-07-2025 a las 20:28:51
+-- Versión del servidor: 5.7.39
+-- Versión de PHP: 7.4.33
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -30,21 +30,21 @@ SET time_zone = "+00:00";
 CREATE TABLE `actividades` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `titulo` varchar(100) NOT NULL,
-  `descripcion` text DEFAULT NULL,
+  `descripcion` text,
   `curso_id` bigint(20) UNSIGNED NOT NULL,
   `asignatura_id` bigint(20) UNSIGNED NOT NULL,
   `fecha_entrega` date NOT NULL,
-  `ponderacion` decimal(3,2) NOT NULL DEFAULT 1.00,
+  `ponderacion` decimal(3,2) NOT NULL DEFAULT '1.00',
   `evaluacion` enum('1','2','3','') NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `actividades`
 --
 
 INSERT INTO `actividades` (`id`, `titulo`, `descripcion`, `curso_id`, `asignatura_id`, `fecha_entrega`, `ponderacion`, `evaluacion`) VALUES
-(1, 'Site en Wordpress', 'Crear un site en Wordpress con una serie de especificaciones a cumplir', 1, 1, '2025-06-29', 0.35, '1'),
-(2, 'Crear Tema de Wordpress', 'Crea un tema de Wordpress', 4, 7, '2025-06-21', 0.25, '1');
+(1, 'Site en Wordpress', 'Crear un site en Wordpress con una serie de especificaciones a cumplir', 1, 1, '2025-06-29', '0.35', '1'),
+(2, 'Crear Tema de Wordpress', 'Crea un tema de Wordpress', 4, 7, '2025-06-21', '0.25', '1');
 
 -- --------------------------------------------------------
 
@@ -57,45 +57,45 @@ CREATE TABLE `actividades_alumnos` (
   `actividad_id` bigint(20) UNSIGNED NOT NULL,
   `alumno_id` bigint(20) UNSIGNED NOT NULL,
   `nota` decimal(5,2) DEFAULT NULL,
-  `entregado` tinyint(1) DEFAULT 0,
+  `entregado` tinyint(1) DEFAULT '0',
   `fecha_entrega` date DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `actividades_alumnos`
 --
 
 INSERT INTO `actividades_alumnos` (`id`, `actividad_id`, `alumno_id`, `nota`, `entregado`, `fecha_entrega`) VALUES
-(1, 1, 128, 6.00, 0, NULL),
-(2, 1, 129, 7.00, 0, NULL),
-(3, 1, 130, 8.00, 0, NULL),
-(4, 1, 131, 9.00, 0, NULL),
-(5, 1, 132, 6.00, 0, NULL),
-(6, 1, 133, 6.00, 0, NULL),
-(7, 1, 134, 6.00, 0, NULL),
-(8, 1, 135, 6.00, 0, NULL),
-(9, 1, 136, 6.00, 0, NULL),
-(10, 1, 137, 7.00, 0, NULL),
-(11, 1, 138, 7.00, 0, NULL),
-(12, 1, 139, 7.00, 0, NULL),
-(13, 1, 140, 7.90, 0, NULL),
-(14, 1, 141, 8.00, 0, NULL),
-(15, 1, 142, 8.00, 0, NULL),
-(16, 1, 143, 8.00, 0, NULL),
-(17, 1, 144, 9.00, 0, NULL),
-(18, 1, 145, 10.00, 0, NULL),
-(19, 2, 164, 10.00, 0, NULL),
-(20, 2, 165, 10.00, 0, NULL),
-(21, 2, 166, 10.00, 0, NULL),
-(22, 2, 167, 10.00, 0, NULL),
-(23, 2, 168, 10.00, 0, NULL),
-(24, 2, 169, 10.00, 0, NULL),
-(25, 2, 170, 10.00, 0, NULL),
-(26, 2, 171, 10.00, 0, NULL),
-(27, 2, 172, 10.00, 0, NULL),
-(28, 2, 174, 0.00, 0, NULL),
-(29, 2, 176, 10.00, 0, NULL),
-(30, 2, 177, 10.00, 0, NULL);
+(1, 1, 128, '6.00', 0, NULL),
+(2, 1, 129, '7.00', 0, NULL),
+(3, 1, 130, '8.00', 0, NULL),
+(4, 1, 131, '9.00', 0, NULL),
+(5, 1, 132, '6.00', 0, NULL),
+(6, 1, 133, '6.00', 0, NULL),
+(7, 1, 134, '6.00', 0, NULL),
+(8, 1, 135, '6.00', 0, NULL),
+(9, 1, 136, '6.00', 0, NULL),
+(10, 1, 137, '7.00', 0, NULL),
+(11, 1, 138, '7.00', 0, NULL),
+(12, 1, 139, '7.00', 0, NULL),
+(13, 1, 140, '7.90', 0, NULL),
+(14, 1, 141, '8.00', 0, NULL),
+(15, 1, 142, '8.00', 0, NULL),
+(16, 1, 143, '8.00', 0, NULL),
+(17, 1, 144, '9.00', 0, NULL),
+(18, 1, 145, '10.00', 0, NULL),
+(19, 2, 164, '10.00', 0, NULL),
+(20, 2, 165, '10.00', 0, NULL),
+(21, 2, 166, '10.00', 0, NULL),
+(22, 2, 167, '10.00', 0, NULL),
+(23, 2, 168, '10.00', 0, NULL),
+(24, 2, 169, '10.00', 0, NULL),
+(25, 2, 170, '10.00', 0, NULL),
+(26, 2, 171, '10.00', 0, NULL),
+(27, 2, 172, '10.00', 0, NULL),
+(28, 2, 174, '0.00', 0, NULL),
+(29, 2, 176, '10.00', 0, NULL),
+(30, 2, 177, '10.00', 0, NULL);
 
 -- --------------------------------------------------------
 
@@ -106,7 +106,7 @@ INSERT INTO `actividades_alumnos` (`id`, `actividad_id`, `alumno_id`, `nota`, `e
 CREATE TABLE `alumnos` (
   `id` int(11) NOT NULL,
   `curso_id` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Volcado de datos para la tabla `alumnos`
@@ -164,9 +164,9 @@ INSERT INTO `alumnos` (`id`, `curso_id`) VALUES
 CREATE TABLE `asignaturas` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `nombre` varchar(100) NOT NULL,
-  `descripcion` text DEFAULT NULL,
+  `descripcion` text,
   `curso_id` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Volcado de datos para la tabla `asignaturas`
@@ -192,32 +192,32 @@ CREATE TABLE `asistencia` (
   `alumno_id` bigint(20) UNSIGNED NOT NULL,
   `asignatura_id` bigint(20) UNSIGNED NOT NULL,
   `evaluacion` tinyint(4) NOT NULL,
-  `porcentaje_asistencia` decimal(5,2) NOT NULL DEFAULT 0.00
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `porcentaje_asistencia` decimal(5,2) NOT NULL DEFAULT '0.00'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Volcado de datos para la tabla `asistencia`
 --
 
 INSERT INTO `asistencia` (`id`, `alumno_id`, `asignatura_id`, `evaluacion`, `porcentaje_asistencia`) VALUES
-(19, 128, 1, 1, 97.90),
-(20, 129, 1, 1, 90.90),
-(21, 130, 1, 1, 98.90),
-(22, 131, 1, 1, 45.50),
-(23, 132, 1, 1, 97.70),
-(24, 133, 1, 1, 91.40),
-(25, 134, 1, 1, 98.90),
-(26, 135, 1, 1, 98.90),
-(27, 136, 1, 1, 97.60),
-(28, 137, 1, 1, 97.80),
-(29, 138, 1, 1, 95.00),
-(30, 139, 1, 1, 93.80),
-(31, 140, 1, 1, 97.80),
-(32, 141, 1, 1, 98.80),
-(33, 142, 1, 1, 89.20),
-(34, 143, 1, 1, 96.70),
-(35, 144, 1, 1, 96.50),
-(36, 145, 1, 1, 96.80);
+(19, 128, 1, 1, '97.90'),
+(20, 129, 1, 1, '90.90'),
+(21, 130, 1, 1, '98.90'),
+(22, 131, 1, 1, '45.50'),
+(23, 132, 1, 1, '97.70'),
+(24, 133, 1, 1, '91.40'),
+(25, 134, 1, 1, '98.90'),
+(26, 135, 1, 1, '98.90'),
+(27, 136, 1, 1, '97.60'),
+(28, 137, 1, 1, '97.80'),
+(29, 138, 1, 1, '95.00'),
+(30, 139, 1, 1, '93.80'),
+(31, 140, 1, 1, '97.80'),
+(32, 141, 1, 1, '98.80'),
+(33, 142, 1, 1, '89.20'),
+(34, 143, 1, 1, '96.70'),
+(35, 144, 1, 1, '96.50'),
+(36, 145, 1, 1, '96.80');
 
 -- --------------------------------------------------------
 
@@ -227,11 +227,11 @@ INSERT INTO `asistencia` (`id`, `alumno_id`, `asignatura_id`, `evaluacion`, `por
 
 CREATE TABLE `banco_preguntas` (
   `id` int(11) NOT NULL,
-  `enunciado` text DEFAULT NULL,
+  `enunciado` text,
   `dificultad` enum('baja','media','alta') DEFAULT 'media',
   `etiqueta_id` bigint(20) DEFAULT NULL,
   `tema_id` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `banco_preguntas`
@@ -250,17 +250,17 @@ INSERT INTO `banco_preguntas` (`id`, `enunciado`, `dificultad`, `etiqueta_id`, `
 CREATE TABLE `banco_preguntas_en_examen` (
   `examen_id` int(11) NOT NULL,
   `pregunta_id` int(11) NOT NULL,
-  `puntuacion` decimal(5,2) NOT NULL DEFAULT 1.00
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+  `puntuacion` decimal(5,2) NOT NULL DEFAULT '1.00'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `banco_preguntas_en_examen`
 --
 
 INSERT INTO `banco_preguntas_en_examen` (`examen_id`, `pregunta_id`, `puntuacion`) VALUES
-(2, 1, 1.00),
-(3, 1, 2.50),
-(3, 2, 2.50);
+(2, 1, '1.00'),
+(3, 1, '4.50'),
+(3, 2, '4.50');
 
 -- --------------------------------------------------------
 
@@ -271,8 +271,8 @@ INSERT INTO `banco_preguntas_en_examen` (`examen_id`, `pregunta_id`, `puntuacion
 CREATE TABLE `cursos` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `nombre` varchar(50) NOT NULL,
-  `descripcion` text DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `descripcion` text
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Volcado de datos para la tabla `cursos`
@@ -292,27 +292,27 @@ INSERT INTO `cursos` (`id`, `nombre`, `descripcion`) VALUES
 CREATE TABLE `ejercicios` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `examen_id` int(11) DEFAULT NULL,
-  `enunciado` text DEFAULT NULL,
+  `enunciado` text,
   `tipo` varchar(20) DEFAULT NULL,
-  `puntuacion` decimal(5,2) DEFAULT 1.00,
+  `puntuacion` decimal(5,2) DEFAULT '1.00',
   `orden` int(11) DEFAULT NULL,
   `etiqueta_id` int(11) DEFAULT NULL,
   `tema_id` int(11) DEFAULT NULL,
   `dificultad` enum('baja','media','alta') DEFAULT 'media'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Volcado de datos para la tabla `ejercicios`
 --
 
 INSERT INTO `ejercicios` (`id`, `examen_id`, `enunciado`, `tipo`, `puntuacion`, `orden`, `etiqueta_id`, `tema_id`, `dificultad`) VALUES
-(4, 2, 'Devuelve los nombres de los personajes que pertenecen a la casa \"Stark\".', 'abierta', 1.60, 1, 3, NULL, 'media'),
-(5, 2, 'Devuelve el nombre de la batalla que se ha librado en \"Meereen\".', 'abierta', 1.60, 2, 3, NULL, 'media'),
-(6, 2, 'Devuelve el título del personaje que ha participado en una batalla cuyo resultado ha sido \"Derrota\".', 'abierta', 1.60, 3, 3, NULL, 'media'),
-(7, 2, 'Devuelve una lista con los personajes y el número de batallas en las que ha participado cada uno.', 'abierta', 1.60, 4, 4, NULL, 'media'),
-(8, 2, 'Devuelve un resumen en XML con todos los nombres de personajes y el nombre de cada batalla, con esta estructura:\r\n\r\n<resumen>\r\n\r\n  <personaje nombre=\"Jon Snow\">\r\n\r\n    <batalla>Batalla de los Bastardos</batalla>\r\n\r\n  </personaje>\r\n\r\n  ...\r\n\r\n</resumen>', 'abierta', 1.60, 5, 4, NULL, 'media'),
-(9, 2, 'Devuelve la lista de casas con el número total de victorias obtenidas por sus personajes, ordenada de mayor a menor número de victorias. EL resultado debe tener este formato: \r\n\r\n<casa nombre=\"Stark\" victorias=\"4\"/>\r\n\r\n<casa nombre=\"Lannister\" victorias=\"2\"/>\r\n\r\n<casa nombre=\"Targaryen\" victorias=\"1\"/>\r\n\r\n\r\n<casa nombre=\"Tarth\" victorias=\"1\"/>', 'abierta', 1.60, 6, 4, NULL, 'media'),
-(10, 3, 'dtjdfthjfhj', 'abierta', 1.00, 1, 1, NULL, 'media');
+(4, 2, 'Devuelve los nombres de los personajes que pertenecen a la casa \"Stark\".', 'abierta', '1.60', 1, 3, NULL, 'media'),
+(5, 2, 'Devuelve el nombre de la batalla que se ha librado en \"Meereen\".', 'abierta', '1.60', 2, 3, NULL, 'media'),
+(6, 2, 'Devuelve el título del personaje que ha participado en una batalla cuyo resultado ha sido \"Derrota\".', 'abierta', '1.60', 3, 3, NULL, 'media'),
+(7, 2, 'Devuelve una lista con los personajes y el número de batallas en las que ha participado cada uno.', 'abierta', '1.60', 4, 4, NULL, 'media'),
+(8, 2, 'Devuelve un resumen en XML con todos los nombres de personajes y el nombre de cada batalla, con esta estructura:\r\n\r\n<resumen>\r\n\r\n  <personaje nombre=\"Jon Snow\">\r\n\r\n    <batalla>Batalla de los Bastardos</batalla>\r\n\r\n  </personaje>\r\n\r\n  ...\r\n\r\n</resumen>', 'abierta', '1.60', 5, 4, NULL, 'media'),
+(9, 2, 'Devuelve la lista de casas con el número total de victorias obtenidas por sus personajes, ordenada de mayor a menor número de victorias. EL resultado debe tener este formato: \r\n\r\n<casa nombre=\"Stark\" victorias=\"4\"/>\r\n\r\n<casa nombre=\"Lannister\" victorias=\"2\"/>\r\n\r\n<casa nombre=\"Targaryen\" victorias=\"1\"/>\r\n\r\n\r\n<casa nombre=\"Tarth\" victorias=\"1\"/>', 'abierta', '1.60', 6, 4, NULL, 'media'),
+(10, 3, 'dtjdfthjfhj', 'abierta', '1.00', 1, 1, NULL, 'media');
 
 -- --------------------------------------------------------
 
@@ -326,11 +326,11 @@ CREATE TABLE `ejercicios_propuestos` (
   `etiqueta_id` bigint(20) DEFAULT NULL,
   `tipo` enum('desarrollo','test','codigo') DEFAULT 'desarrollo',
   `dificultad` enum('baja','media','alta') DEFAULT 'media',
-  `enunciado` text DEFAULT NULL,
-  `solucion` text DEFAULT NULL,
-  `activo` tinyint(1) DEFAULT 1,
-  `creado_en` timestamp NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+  `enunciado` text,
+  `solucion` text,
+  `activo` tinyint(1) DEFAULT '1',
+  `creado_en` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `ejercicios_propuestos`
@@ -349,7 +349,7 @@ INSERT INTO `ejercicios_propuestos` (`id`, `tema_id`, `etiqueta_id`, `tipo`, `di
 CREATE TABLE `etiquetas` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `nombre` varchar(100) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Volcado de datos para la tabla `etiquetas`
@@ -371,7 +371,7 @@ CREATE TABLE `etiqueta_ejercicio` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `ejercicio_id` int(11) DEFAULT NULL,
   `etiqueta_id` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -387,14 +387,14 @@ CREATE TABLE `evaluaciones` (
   `ponderacion_examenes` decimal(4,2) NOT NULL,
   `ponderacion_actividades` decimal(4,2) NOT NULL,
   `ponderacion_asistencia` decimal(4,2) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Volcado de datos para la tabla `evaluaciones`
 --
 
 INSERT INTO `evaluaciones` (`id`, `curso_id`, `asignatura_id`, `numero_evaluacion`, `ponderacion_examenes`, `ponderacion_actividades`, `ponderacion_asistencia`) VALUES
-(1, 1, 1, 1, 0.40, 0.40, 0.20);
+(1, 1, 1, 1, '0.40', '0.40', '0.20');
 
 -- --------------------------------------------------------
 
@@ -405,13 +405,13 @@ INSERT INTO `evaluaciones` (`id`, `curso_id`, `asignatura_id`, `numero_evaluacio
 CREATE TABLE `examenes` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `titulo` varchar(100) NOT NULL,
-  `descripcion` text DEFAULT NULL,
+  `descripcion` text,
   `asignatura_id` int(11) DEFAULT NULL,
   `fecha` date DEFAULT NULL,
   `hora` time NOT NULL,
   `tipo` varchar(50) DEFAULT NULL,
-  `evaluacion` tinyint(1) NOT NULL DEFAULT 1
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `evaluacion` tinyint(1) NOT NULL DEFAULT '1'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Volcado de datos para la tabla `examenes`
@@ -433,7 +433,7 @@ CREATE TABLE `matricula` (
   `alumno_id` int(11) DEFAULT NULL,
   `asignatura_id` int(11) DEFAULT NULL,
   `curso_escolar` varchar(9) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -446,68 +446,68 @@ CREATE TABLE `notas_examen_alumno` (
   `examen_id` bigint(20) NOT NULL,
   `alumno_id` int(11) NOT NULL,
   `nota_total` decimal(5,2) NOT NULL,
-  `fecha_registro` timestamp NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+  `fecha_registro` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `notas_examen_alumno`
 --
 
 INSERT INTO `notas_examen_alumno` (`id`, `examen_id`, `alumno_id`, `nota_total`, `fecha_registro`) VALUES
-(1, 3, 128, 2.70, '2025-06-19 10:47:34'),
-(2, 3, 129, 1.10, '2025-06-19 10:47:34'),
-(3, 3, 130, 1.00, '2025-06-19 10:47:34'),
-(4, 3, 131, 2.00, '2025-06-19 10:47:34'),
-(5, 3, 132, 2.20, '2025-06-19 10:47:34'),
-(6, 3, 133, 1.50, '2025-06-19 10:47:34'),
-(7, 3, 134, 1.00, '2025-06-19 10:47:34'),
-(8, 3, 135, 1.00, '2025-06-19 10:47:34'),
-(9, 3, 136, 1.00, '2025-06-19 10:47:34'),
-(10, 3, 137, 1.00, '2025-06-19 10:47:34'),
-(11, 3, 138, 1.00, '2025-06-19 10:47:34'),
-(12, 3, 139, 1.00, '2025-06-19 10:47:34'),
-(13, 3, 140, 1.00, '2025-06-19 10:47:34'),
-(14, 3, 141, 1.70, '2025-06-19 10:47:34'),
-(15, 3, 142, 1.00, '2025-06-19 10:47:34'),
-(16, 3, 143, 1.00, '2025-06-19 10:47:34'),
-(17, 3, 144, 1.00, '2025-06-19 10:47:34'),
-(18, 3, 145, 2.00, '2025-06-19 10:47:34'),
-(55, 2, 128, 2.00, '2025-06-19 10:49:39'),
-(56, 2, 129, 6.30, '2025-06-19 10:49:39'),
-(57, 2, 130, 9.20, '2025-06-19 10:49:39'),
-(58, 2, 131, 6.80, '2025-06-19 10:49:39'),
-(59, 2, 132, 6.40, '2025-06-19 10:49:39'),
-(60, 2, 133, 7.00, '2025-06-19 10:49:39'),
-(61, 2, 134, 9.60, '2025-06-19 10:49:39'),
-(62, 2, 135, 9.50, '2025-06-19 10:49:39'),
-(63, 2, 136, 6.00, '2025-06-19 10:49:39'),
-(64, 2, 137, 6.00, '2025-06-19 10:49:39'),
-(65, 2, 138, 3.00, '2025-06-19 10:49:39'),
-(66, 2, 139, 9.96, '2025-06-19 10:49:39'),
-(67, 2, 140, 6.60, '2025-06-19 10:49:39'),
-(68, 2, 141, 8.65, '2025-06-19 10:49:39'),
-(69, 2, 142, 6.00, '2025-06-19 10:49:39'),
-(70, 2, 143, 4.00, '2025-06-19 10:49:39'),
-(71, 2, 144, 5.50, '2025-06-19 10:49:39'),
-(72, 2, 145, 6.60, '2025-06-19 10:49:39'),
-(73, 5, 128, 10.00, '2025-06-19 10:53:01'),
-(74, 5, 129, 10.00, '2025-06-19 10:53:01'),
-(75, 5, 130, 10.00, '2025-06-19 10:53:01'),
-(76, 5, 131, 4.00, '2025-06-19 10:53:01'),
-(77, 5, 132, 10.00, '2025-06-19 10:53:01'),
-(78, 5, 133, 10.00, '2025-06-19 10:53:01'),
-(79, 5, 134, 9.00, '2025-06-19 10:53:01'),
-(80, 5, 135, 0.00, '2025-06-19 10:53:01'),
-(81, 5, 136, 10.00, '2025-06-19 10:53:01'),
-(82, 5, 137, 9.00, '2025-06-19 10:53:01'),
-(83, 5, 138, 5.00, '2025-06-19 10:53:01'),
-(84, 5, 139, 10.00, '2025-06-19 10:53:01'),
-(85, 5, 140, 10.00, '2025-06-19 10:53:01'),
-(86, 5, 141, 9.00, '2025-06-19 10:53:01'),
-(87, 5, 142, 10.00, '2025-06-19 10:53:01'),
-(88, 5, 143, 10.00, '2025-06-19 10:53:01'),
-(89, 5, 144, 9.00, '2025-06-19 10:53:01'),
-(90, 5, 145, 8.00, '2025-06-19 10:53:01');
+(1, 3, 128, '2.10', '2025-06-19 10:47:34'),
+(2, 3, 129, '1.10', '2025-06-19 10:47:34'),
+(3, 3, 130, '0.20', '2025-06-19 10:47:34'),
+(4, 3, 131, '2.00', '2025-06-19 10:47:34'),
+(5, 3, 132, '2.20', '2025-06-19 10:47:34'),
+(6, 3, 133, '1.50', '2025-06-19 10:47:34'),
+(7, 3, 134, '1.00', '2025-06-19 10:47:34'),
+(8, 3, 135, '1.00', '2025-06-19 10:47:34'),
+(9, 3, 136, '1.00', '2025-06-19 10:47:34'),
+(10, 3, 137, '1.00', '2025-06-19 10:47:34'),
+(11, 3, 138, '1.00', '2025-06-19 10:47:34'),
+(12, 3, 139, '1.00', '2025-06-19 10:47:34'),
+(13, 3, 140, '1.00', '2025-06-19 10:47:34'),
+(14, 3, 141, '1.70', '2025-06-19 10:47:34'),
+(15, 3, 142, '1.00', '2025-06-19 10:47:34'),
+(16, 3, 143, '1.00', '2025-06-19 10:47:34'),
+(17, 3, 144, '1.00', '2025-06-19 10:47:34'),
+(18, 3, 145, '2.00', '2025-06-19 10:47:34'),
+(55, 2, 128, '5.50', '2025-06-19 10:49:39'),
+(56, 2, 129, '6.30', '2025-06-19 10:49:39'),
+(57, 2, 130, '9.00', '2025-06-19 10:49:39'),
+(58, 2, 131, '6.80', '2025-06-19 10:49:39'),
+(59, 2, 132, '6.40', '2025-06-19 10:49:39'),
+(60, 2, 133, '7.00', '2025-06-19 10:49:39'),
+(61, 2, 134, '9.60', '2025-06-19 10:49:39'),
+(62, 2, 135, '9.50', '2025-06-19 10:49:39'),
+(63, 2, 136, '6.00', '2025-06-19 10:49:39'),
+(64, 2, 137, '6.00', '2025-06-19 10:49:39'),
+(65, 2, 138, '3.00', '2025-06-19 10:49:39'),
+(66, 2, 139, '9.96', '2025-06-19 10:49:39'),
+(67, 2, 140, '6.60', '2025-06-19 10:49:39'),
+(68, 2, 141, '8.65', '2025-06-19 10:49:39'),
+(69, 2, 142, '6.00', '2025-06-19 10:49:39'),
+(70, 2, 143, '4.00', '2025-06-19 10:49:39'),
+(71, 2, 144, '5.50', '2025-06-19 10:49:39'),
+(72, 2, 145, '7.10', '2025-06-19 10:49:39'),
+(73, 5, 128, '10.00', '2025-06-19 10:53:01'),
+(74, 5, 129, '10.00', '2025-06-19 10:53:01'),
+(75, 5, 130, '10.00', '2025-06-19 10:53:01'),
+(76, 5, 131, '4.00', '2025-06-19 10:53:01'),
+(77, 5, 132, '10.00', '2025-06-19 10:53:01'),
+(78, 5, 133, '10.00', '2025-06-19 10:53:01'),
+(79, 5, 134, '9.00', '2025-06-19 10:53:01'),
+(80, 5, 135, '0.00', '2025-06-19 10:53:01'),
+(81, 5, 136, '10.00', '2025-06-19 10:53:01'),
+(82, 5, 137, '9.00', '2025-06-19 10:53:01'),
+(83, 5, 138, '5.00', '2025-06-19 10:53:01'),
+(84, 5, 139, '10.00', '2025-06-19 10:53:01'),
+(85, 5, 140, '10.00', '2025-06-19 10:53:01'),
+(86, 5, 141, '9.00', '2025-06-19 10:53:01'),
+(87, 5, 142, '10.00', '2025-06-19 10:53:01'),
+(88, 5, 143, '10.00', '2025-06-19 10:53:01'),
+(89, 5, 144, '9.00', '2025-06-19 10:53:01'),
+(90, 5, 145, '8.00', '2025-06-19 10:53:01');
 
 -- --------------------------------------------------------
 
@@ -525,31 +525,31 @@ CREATE TABLE `notas_finales_evaluacion` (
   `nota_actividades` decimal(5,2) DEFAULT NULL,
   `asistencia` decimal(5,2) DEFAULT NULL,
   `nota_final` decimal(5,2) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Volcado de datos para la tabla `notas_finales_evaluacion`
 --
 
 INSERT INTO `notas_finales_evaluacion` (`id`, `alumno_id`, `curso_id`, `asignatura_id`, `evaluacion_id`, `nota_examenes`, `nota_actividades`, `asistencia`, `nota_final`) VALUES
-(1, 128, 1, 1, 1, 4.90, 6.00, 0.00, 4.36),
-(2, 129, 1, 1, 1, 5.80, 7.00, 0.00, 5.12),
-(3, 130, 1, 1, 1, 6.73, 8.00, 0.00, 5.89),
-(4, 131, 1, 1, 1, 4.27, 9.00, 0.00, 5.31),
-(5, 132, 1, 1, 1, 6.20, 6.00, 0.00, 4.88),
-(6, 133, 1, 1, 1, 6.17, 6.00, 0.00, 4.87),
-(7, 134, 1, 1, 1, 6.53, 6.00, 0.00, 5.01),
-(8, 135, 1, 1, 1, 3.50, 6.00, 0.00, 3.80),
-(9, 136, 1, 1, 1, 5.67, 6.00, 0.00, 4.67),
-(10, 137, 1, 1, 1, 5.33, 7.00, 0.00, 4.93),
-(11, 138, 1, 1, 1, 3.00, 7.00, 0.00, 4.00),
-(12, 139, 1, 1, 1, 6.99, 7.00, 0.00, 5.60),
-(13, 140, 1, 1, 1, 5.87, 7.90, 0.00, 5.51),
-(14, 141, 1, 1, 1, 6.45, 8.00, 0.00, 5.78),
-(15, 142, 1, 1, 1, 5.67, 8.00, 0.00, 5.47),
-(16, 143, 1, 1, 1, 5.00, 8.00, 0.00, 5.20),
-(17, 144, 1, 1, 1, 5.17, 9.00, 0.00, 5.67),
-(18, 145, 1, 1, 1, 5.53, 10.00, 0.00, 6.21);
+(1, 128, 1, 1, 1, '4.90', '6.00', '0.00', '4.36'),
+(2, 129, 1, 1, 1, '5.80', '7.00', '0.00', '5.12'),
+(3, 130, 1, 1, 1, '6.73', '8.00', '0.00', '5.89'),
+(4, 131, 1, 1, 1, '4.27', '9.00', '0.00', '5.31'),
+(5, 132, 1, 1, 1, '6.20', '6.00', '0.00', '4.88'),
+(6, 133, 1, 1, 1, '6.17', '6.00', '0.00', '4.87'),
+(7, 134, 1, 1, 1, '6.53', '6.00', '0.00', '5.01'),
+(8, 135, 1, 1, 1, '3.50', '6.00', '0.00', '3.80'),
+(9, 136, 1, 1, 1, '5.67', '6.00', '0.00', '4.67'),
+(10, 137, 1, 1, 1, '5.33', '7.00', '0.00', '4.93'),
+(11, 138, 1, 1, 1, '3.00', '7.00', '0.00', '4.00'),
+(12, 139, 1, 1, 1, '6.99', '7.00', '0.00', '5.60'),
+(13, 140, 1, 1, 1, '5.87', '7.90', '0.00', '5.51'),
+(14, 141, 1, 1, 1, '6.45', '8.00', '0.00', '5.78'),
+(15, 142, 1, 1, 1, '5.67', '8.00', '0.00', '5.47'),
+(16, 143, 1, 1, 1, '5.00', '8.00', '0.00', '5.20'),
+(17, 144, 1, 1, 1, '5.17', '9.00', '0.00', '5.67'),
+(18, 145, 1, 1, 1, '5.53', '10.00', '0.00', '6.21');
 
 -- --------------------------------------------------------
 
@@ -561,8 +561,8 @@ CREATE TABLE `opciones_banco_pregunta` (
   `id` int(11) NOT NULL,
   `pregunta_id` int(11) DEFAULT NULL,
   `texto` varchar(255) DEFAULT NULL,
-  `es_correcta` tinyint(1) DEFAULT 0
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+  `es_correcta` tinyint(1) DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `opciones_banco_pregunta`
@@ -587,7 +587,7 @@ INSERT INTO `opciones_banco_pregunta` (`id`, `pregunta_id`, `texto`, `es_correct
 CREATE TABLE `profesores` (
   `id` int(11) NOT NULL,
   `departamento` varchar(100) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Volcado de datos para la tabla `profesores`
@@ -609,7 +609,7 @@ CREATE TABLE `profesor_asignatura` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `profesor_id` int(11) DEFAULT NULL,
   `asignatura_id` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Volcado de datos para la tabla `profesor_asignatura`
@@ -633,143 +633,143 @@ CREATE TABLE `resoluciones` (
   `id` int(11) NOT NULL,
   `alumno_id` int(11) DEFAULT NULL,
   `ejercicio_id` int(11) DEFAULT NULL,
-  `respuesta_texto` text DEFAULT NULL,
+  `respuesta_texto` text,
   `respuesta_id` int(11) DEFAULT NULL,
-  `puntuacion_obtenida` decimal(5,2) DEFAULT 0.00,
-  `fecha_respuesta` timestamp NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `puntuacion_obtenida` decimal(5,2) DEFAULT '0.00',
+  `fecha_respuesta` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Volcado de datos para la tabla `resoluciones`
 --
 
 INSERT INTO `resoluciones` (`id`, `alumno_id`, `ejercicio_id`, `respuesta_texto`, `respuesta_id`, `puntuacion_obtenida`, `fecha_respuesta`) VALUES
-(4, 128, 4, NULL, NULL, 0.00, '2025-06-15 17:36:48'),
-(5, 129, 4, NULL, NULL, 1.00, '2025-06-15 17:12:01'),
-(6, 130, 4, NULL, NULL, 1.60, '2025-06-15 17:12:11'),
-(7, 131, 4, NULL, NULL, 1.00, '2025-06-15 17:12:14'),
-(8, 132, 4, NULL, NULL, 0.00, '2025-06-15 17:12:19'),
-(9, 133, 4, NULL, NULL, 0.50, '2025-06-15 17:12:22'),
-(10, 134, 4, NULL, NULL, 1.60, '2025-06-15 17:12:27'),
-(11, 135, 4, NULL, NULL, 1.20, '2025-06-15 17:12:30'),
-(12, 136, 4, NULL, NULL, 1.00, '2025-06-15 17:12:32'),
-(13, 137, 4, NULL, NULL, 1.00, '2025-06-15 17:12:34'),
-(14, 138, 4, NULL, NULL, 0.00, '2025-06-15 17:12:38'),
-(15, 139, 4, NULL, NULL, 1.66, '2025-06-15 17:17:22'),
-(16, 140, 4, NULL, NULL, 1.60, '2025-06-15 17:12:50'),
-(17, 141, 4, NULL, NULL, 1.20, '2025-06-15 17:12:54'),
-(18, 142, 4, NULL, NULL, 1.00, '2025-06-15 17:12:56'),
-(19, 143, 4, NULL, NULL, 1.00, '2025-06-15 17:12:58'),
-(20, 144, 4, NULL, NULL, 0.00, '2025-06-15 17:13:01'),
-(21, 145, 4, NULL, NULL, 1.60, '2025-06-15 17:13:07'),
-(22, 128, 5, NULL, NULL, 0.00, '2025-06-15 17:36:51'),
-(23, 129, 5, NULL, NULL, 1.00, '2025-06-15 17:13:11'),
-(24, 130, 5, NULL, NULL, 1.60, '2025-06-15 17:13:15'),
-(25, 128, 6, NULL, NULL, 1.00, '2025-06-16 15:34:57'),
-(26, 128, 7, NULL, NULL, 0.20, '2025-06-18 13:55:44'),
-(27, 128, 8, NULL, NULL, 0.00, '2025-06-15 17:39:16'),
-(28, 128, 9, NULL, NULL, 0.10, '2025-06-16 16:33:38'),
-(29, 129, 6, NULL, NULL, 1.00, '2025-06-15 17:13:37'),
-(30, 129, 7, NULL, NULL, 1.00, '2025-06-15 17:13:38'),
-(31, 129, 8, NULL, NULL, 1.00, '2025-06-15 17:13:40'),
-(32, 129, 9, NULL, NULL, 1.00, '2025-06-15 17:13:43'),
-(33, 130, 6, NULL, NULL, 1.30, '2025-06-15 17:14:00'),
-(34, 130, 7, NULL, NULL, 1.40, '2025-06-15 17:14:03'),
-(35, 130, 8, NULL, NULL, 1.50, '2025-06-15 17:14:06'),
-(36, 130, 9, NULL, NULL, 1.60, '2025-06-15 17:14:10'),
-(37, 131, 5, NULL, NULL, 0.00, '2025-06-15 17:14:14'),
-(38, 131, 6, NULL, NULL, 1.20, '2025-06-15 17:14:17'),
-(39, 131, 7, NULL, NULL, 1.30, '2025-06-15 17:14:21'),
-(40, 131, 8, NULL, NULL, 1.40, '2025-06-15 17:14:24'),
-(41, 131, 9, NULL, NULL, 1.30, '2025-06-15 17:14:28'),
-(42, 132, 5, NULL, NULL, 1.00, '2025-06-15 17:14:30'),
-(43, 132, 6, NULL, NULL, 1.00, '2025-06-15 17:14:32'),
-(44, 132, 7, NULL, NULL, 1.00, '2025-06-15 17:14:34'),
-(45, 132, 8, NULL, NULL, 1.20, '2025-06-15 17:14:36'),
-(46, 132, 9, NULL, NULL, 1.50, '2025-06-15 17:14:40'),
-(47, 133, 5, NULL, NULL, 0.80, '2025-06-15 17:15:50'),
-(48, 133, 6, NULL, NULL, 1.00, '2025-06-15 17:15:53'),
-(49, 133, 7, NULL, NULL, 1.20, '2025-06-15 17:15:56'),
-(50, 133, 8, NULL, NULL, 1.40, '2025-06-15 17:15:59'),
-(51, 133, 9, NULL, NULL, 1.60, '2025-06-15 17:16:02'),
-(52, 134, 5, NULL, NULL, 1.60, '2025-06-15 17:16:05'),
-(53, 134, 6, NULL, NULL, 1.60, '2025-06-15 17:16:08'),
-(54, 134, 7, NULL, NULL, 1.60, '2025-06-15 17:16:16'),
-(55, 134, 8, NULL, NULL, 1.60, '2025-06-15 17:16:19'),
-(56, 134, 9, NULL, NULL, 1.60, '2025-06-15 17:16:21'),
-(57, 135, 5, NULL, NULL, 1.66, '2025-06-15 17:16:30'),
-(58, 135, 6, NULL, NULL, 1.66, '2025-06-15 17:16:32'),
-(59, 135, 7, NULL, NULL, 1.66, '2025-06-15 17:16:36'),
-(60, 135, 8, NULL, NULL, 1.66, '2025-06-15 17:16:38'),
-(61, 135, 9, NULL, NULL, 1.66, '2025-06-15 17:16:41'),
-(62, 136, 5, NULL, NULL, 1.00, '2025-06-15 17:16:44'),
-(63, 136, 6, NULL, NULL, 1.00, '2025-06-15 17:16:45'),
-(64, 136, 7, NULL, NULL, 1.00, '2025-06-15 17:16:46'),
-(65, 136, 8, NULL, NULL, 1.00, '2025-06-15 17:16:47'),
-(66, 136, 9, NULL, NULL, 1.00, '2025-06-15 17:16:49'),
-(67, 137, 5, NULL, NULL, 1.00, '2025-06-15 17:16:51'),
-(68, 137, 6, NULL, NULL, 0.00, '2025-06-15 17:16:54'),
-(69, 137, 7, NULL, NULL, 1.20, '2025-06-15 17:16:56'),
-(70, 137, 8, NULL, NULL, 1.40, '2025-06-15 17:17:00'),
-(71, 137, 9, NULL, NULL, 1.40, '2025-06-15 17:17:03'),
-(72, 138, 5, NULL, NULL, 0.00, '2025-06-15 17:17:06'),
-(73, 138, 6, NULL, NULL, 0.00, '2025-06-15 17:17:08'),
-(74, 138, 7, NULL, NULL, 1.00, '2025-06-15 17:17:09'),
-(75, 138, 8, NULL, NULL, 1.00, '2025-06-15 17:17:11'),
-(76, 138, 9, NULL, NULL, 1.00, '2025-06-15 17:17:12'),
-(77, 139, 5, NULL, NULL, 1.66, '2025-06-15 17:17:24'),
-(78, 139, 6, NULL, NULL, 1.66, '2025-06-15 17:17:27'),
-(79, 139, 7, NULL, NULL, 1.66, '2025-06-15 17:17:29'),
-(80, 139, 8, NULL, NULL, 1.66, '2025-06-15 17:17:31'),
-(81, 139, 9, NULL, NULL, 1.66, '2025-06-15 17:17:34'),
-(82, 140, 5, NULL, NULL, 1.00, '2025-06-15 17:17:38'),
-(83, 140, 6, NULL, NULL, 1.00, '2025-06-15 17:17:40'),
-(84, 140, 7, NULL, NULL, 1.00, '2025-06-15 17:17:41'),
-(85, 140, 8, NULL, NULL, 1.00, '2025-06-15 17:17:43'),
-(86, 140, 9, NULL, NULL, 1.00, '2025-06-15 17:17:44'),
-(87, 141, 5, NULL, NULL, 1.32, '2025-06-15 17:17:50'),
-(88, 141, 6, NULL, NULL, 1.22, '2025-06-15 17:17:53'),
-(89, 141, 7, NULL, NULL, 1.44, '2025-06-15 17:17:56'),
-(90, 141, 8, NULL, NULL, 1.44, '2025-06-15 17:18:00'),
-(91, 141, 9, NULL, NULL, 1.33, '2025-06-15 17:18:04'),
-(92, 142, 5, NULL, NULL, 1.00, '2025-06-15 17:18:06'),
-(93, 142, 6, NULL, NULL, 1.00, '2025-06-15 17:18:07'),
-(94, 142, 7, NULL, NULL, 1.00, '2025-06-15 17:18:08'),
-(95, 142, 8, NULL, NULL, 1.00, '2025-06-15 17:18:09'),
-(96, 142, 9, NULL, NULL, 1.00, '2025-06-15 17:18:14'),
-(97, 143, 5, NULL, NULL, 0.00, '2025-06-15 17:18:16'),
-(98, 143, 6, NULL, NULL, 1.00, '2025-06-15 17:18:20'),
-(99, 143, 7, NULL, NULL, 0.00, '2025-06-15 17:18:22'),
-(100, 143, 8, NULL, NULL, 1.00, '2025-06-15 17:18:24'),
-(101, 143, 9, NULL, NULL, 1.00, '2025-06-15 17:18:27'),
-(102, 144, 5, NULL, NULL, 1.00, '2025-06-15 17:18:32'),
-(103, 144, 6, NULL, NULL, 1.00, '2025-06-15 17:18:34'),
-(104, 144, 7, NULL, NULL, 1.50, '2025-06-15 17:18:39'),
-(105, 144, 8, NULL, NULL, 1.00, '2025-06-15 17:18:41'),
-(106, 144, 9, NULL, NULL, 1.00, '2025-06-15 17:18:43'),
-(107, 145, 5, NULL, NULL, 1.00, '2025-06-15 17:29:59'),
-(108, 145, 6, NULL, NULL, 1.00, '2025-06-15 17:18:52'),
-(109, 145, 7, NULL, NULL, 1.00, '2025-06-15 17:18:54'),
-(110, 145, 8, NULL, NULL, 1.00, '2025-06-15 17:18:57'),
-(111, 145, 9, NULL, NULL, 1.00, '2025-06-15 17:19:00'),
-(112, 128, 10, NULL, NULL, 1.00, '2025-06-20 07:11:38'),
-(113, 129, 10, NULL, NULL, 0.50, '2025-06-19 10:48:07'),
-(114, 130, 10, NULL, NULL, 0.90, '2025-06-19 16:45:43'),
-(115, 132, 10, NULL, NULL, 1.00, '2025-06-18 14:06:12'),
-(116, 134, 10, NULL, NULL, 1.00, '2025-06-18 14:06:13'),
-(117, 131, 10, NULL, NULL, 1.00, '2025-06-18 14:06:16'),
-(118, 133, 10, NULL, NULL, 1.00, '2025-06-18 14:06:19'),
-(119, 135, 10, NULL, NULL, 1.00, '2025-06-18 14:06:21'),
-(120, 136, 10, NULL, NULL, 1.00, '2025-06-18 14:06:26'),
-(121, 137, 10, NULL, NULL, 1.00, '2025-06-18 14:06:27'),
-(122, 138, 10, NULL, NULL, 1.00, '2025-06-18 14:06:29'),
-(123, 139, 10, NULL, NULL, 1.00, '2025-06-18 14:06:30'),
-(124, 140, 10, NULL, NULL, 1.00, '2025-06-18 14:06:31'),
-(125, 141, 10, NULL, NULL, 1.00, '2025-06-18 14:06:33'),
-(126, 142, 10, NULL, NULL, 1.00, '2025-06-18 14:06:34'),
-(127, 143, 10, NULL, NULL, 1.00, '2025-06-18 14:06:36'),
-(128, 144, 10, NULL, NULL, 1.00, '2025-06-18 14:06:39'),
-(129, 145, 10, NULL, NULL, 1.00, '2025-06-18 14:06:41');
+(4, 128, 4, NULL, NULL, '1.60', '2025-07-02 18:22:06'),
+(5, 129, 4, NULL, NULL, '1.00', '2025-06-15 17:12:01'),
+(6, 130, 4, NULL, NULL, '1.60', '2025-06-15 17:12:11'),
+(7, 131, 4, NULL, NULL, '1.00', '2025-06-15 17:12:14'),
+(8, 132, 4, NULL, NULL, '0.00', '2025-06-15 17:12:19'),
+(9, 133, 4, NULL, NULL, '0.50', '2025-06-15 17:12:22'),
+(10, 134, 4, NULL, NULL, '1.60', '2025-06-15 17:12:27'),
+(11, 135, 4, NULL, NULL, '1.20', '2025-06-15 17:12:30'),
+(12, 136, 4, NULL, NULL, '1.00', '2025-06-15 17:12:32'),
+(13, 137, 4, NULL, NULL, '1.00', '2025-06-15 17:12:34'),
+(14, 138, 4, NULL, NULL, '0.00', '2025-06-15 17:12:38'),
+(15, 139, 4, NULL, NULL, '1.66', '2025-06-15 17:17:22'),
+(16, 140, 4, NULL, NULL, '1.60', '2025-06-15 17:12:50'),
+(17, 141, 4, NULL, NULL, '1.20', '2025-06-15 17:12:54'),
+(18, 142, 4, NULL, NULL, '1.00', '2025-06-15 17:12:56'),
+(19, 143, 4, NULL, NULL, '1.00', '2025-06-15 17:12:58'),
+(20, 144, 4, NULL, NULL, '0.00', '2025-06-15 17:13:01'),
+(21, 145, 4, NULL, NULL, '1.60', '2025-06-15 17:13:07'),
+(22, 128, 5, NULL, NULL, '1.60', '2025-07-02 18:22:11'),
+(23, 129, 5, NULL, NULL, '1.00', '2025-06-15 17:13:11'),
+(24, 130, 5, NULL, NULL, '1.60', '2025-06-15 17:13:15'),
+(25, 128, 6, NULL, NULL, '1.00', '2025-06-16 15:34:57'),
+(26, 128, 7, NULL, NULL, '0.20', '2025-06-18 13:55:44'),
+(27, 128, 8, NULL, NULL, '0.00', '2025-06-15 17:39:16'),
+(28, 128, 9, NULL, NULL, '0.10', '2025-06-16 16:33:38'),
+(29, 129, 6, NULL, NULL, '1.00', '2025-06-15 17:13:37'),
+(30, 129, 7, NULL, NULL, '1.00', '2025-06-15 17:13:38'),
+(31, 129, 8, NULL, NULL, '1.00', '2025-06-15 17:13:40'),
+(32, 129, 9, NULL, NULL, '1.00', '2025-06-15 17:13:43'),
+(33, 130, 6, NULL, NULL, '1.30', '2025-06-15 17:14:00'),
+(34, 130, 7, NULL, NULL, '1.40', '2025-06-15 17:14:03'),
+(35, 130, 8, NULL, NULL, '1.50', '2025-06-15 17:14:06'),
+(36, 130, 9, NULL, NULL, '1.60', '2025-06-15 17:14:10'),
+(37, 131, 5, NULL, NULL, '0.00', '2025-06-15 17:14:14'),
+(38, 131, 6, NULL, NULL, '1.20', '2025-06-15 17:14:17'),
+(39, 131, 7, NULL, NULL, '1.30', '2025-06-15 17:14:21'),
+(40, 131, 8, NULL, NULL, '1.40', '2025-06-15 17:14:24'),
+(41, 131, 9, NULL, NULL, '1.30', '2025-06-15 17:14:28'),
+(42, 132, 5, NULL, NULL, '1.00', '2025-06-15 17:14:30'),
+(43, 132, 6, NULL, NULL, '1.00', '2025-06-15 17:14:32'),
+(44, 132, 7, NULL, NULL, '1.00', '2025-06-15 17:14:34'),
+(45, 132, 8, NULL, NULL, '1.20', '2025-06-15 17:14:36'),
+(46, 132, 9, NULL, NULL, '1.50', '2025-06-15 17:14:40'),
+(47, 133, 5, NULL, NULL, '0.80', '2025-06-15 17:15:50'),
+(48, 133, 6, NULL, NULL, '1.00', '2025-06-15 17:15:53'),
+(49, 133, 7, NULL, NULL, '1.20', '2025-06-15 17:15:56'),
+(50, 133, 8, NULL, NULL, '1.40', '2025-06-15 17:15:59'),
+(51, 133, 9, NULL, NULL, '1.60', '2025-06-15 17:16:02'),
+(52, 134, 5, NULL, NULL, '1.60', '2025-06-15 17:16:05'),
+(53, 134, 6, NULL, NULL, '1.60', '2025-06-15 17:16:08'),
+(54, 134, 7, NULL, NULL, '1.60', '2025-06-15 17:16:16'),
+(55, 134, 8, NULL, NULL, '1.60', '2025-06-15 17:16:19'),
+(56, 134, 9, NULL, NULL, '1.60', '2025-06-15 17:16:21'),
+(57, 135, 5, NULL, NULL, '1.66', '2025-06-15 17:16:30'),
+(58, 135, 6, NULL, NULL, '1.66', '2025-06-15 17:16:32'),
+(59, 135, 7, NULL, NULL, '1.66', '2025-06-15 17:16:36'),
+(60, 135, 8, NULL, NULL, '1.66', '2025-06-15 17:16:38'),
+(61, 135, 9, NULL, NULL, '1.66', '2025-06-15 17:16:41'),
+(62, 136, 5, NULL, NULL, '1.00', '2025-06-15 17:16:44'),
+(63, 136, 6, NULL, NULL, '1.00', '2025-06-15 17:16:45'),
+(64, 136, 7, NULL, NULL, '1.00', '2025-06-15 17:16:46'),
+(65, 136, 8, NULL, NULL, '1.00', '2025-06-15 17:16:47'),
+(66, 136, 9, NULL, NULL, '1.00', '2025-06-15 17:16:49'),
+(67, 137, 5, NULL, NULL, '1.00', '2025-06-15 17:16:51'),
+(68, 137, 6, NULL, NULL, '0.00', '2025-06-15 17:16:54'),
+(69, 137, 7, NULL, NULL, '1.20', '2025-06-15 17:16:56'),
+(70, 137, 8, NULL, NULL, '1.40', '2025-06-15 17:17:00'),
+(71, 137, 9, NULL, NULL, '1.40', '2025-06-15 17:17:03'),
+(72, 138, 5, NULL, NULL, '0.00', '2025-06-15 17:17:06'),
+(73, 138, 6, NULL, NULL, '0.00', '2025-06-15 17:17:08'),
+(74, 138, 7, NULL, NULL, '1.00', '2025-06-15 17:17:09'),
+(75, 138, 8, NULL, NULL, '1.00', '2025-06-15 17:17:11'),
+(76, 138, 9, NULL, NULL, '1.00', '2025-06-15 17:17:12'),
+(77, 139, 5, NULL, NULL, '1.66', '2025-06-15 17:17:24'),
+(78, 139, 6, NULL, NULL, '1.66', '2025-06-15 17:17:27'),
+(79, 139, 7, NULL, NULL, '1.66', '2025-06-15 17:17:29'),
+(80, 139, 8, NULL, NULL, '1.66', '2025-06-15 17:17:31'),
+(81, 139, 9, NULL, NULL, '1.66', '2025-06-15 17:17:34'),
+(82, 140, 5, NULL, NULL, '1.00', '2025-06-15 17:17:38'),
+(83, 140, 6, NULL, NULL, '1.00', '2025-06-15 17:17:40'),
+(84, 140, 7, NULL, NULL, '1.00', '2025-06-15 17:17:41'),
+(85, 140, 8, NULL, NULL, '1.00', '2025-06-15 17:17:43'),
+(86, 140, 9, NULL, NULL, '1.00', '2025-06-15 17:17:44'),
+(87, 141, 5, NULL, NULL, '1.32', '2025-06-15 17:17:50'),
+(88, 141, 6, NULL, NULL, '1.22', '2025-06-15 17:17:53'),
+(89, 141, 7, NULL, NULL, '1.44', '2025-06-15 17:17:56'),
+(90, 141, 8, NULL, NULL, '1.44', '2025-06-15 17:18:00'),
+(91, 141, 9, NULL, NULL, '1.33', '2025-06-15 17:18:04'),
+(92, 142, 5, NULL, NULL, '1.00', '2025-06-15 17:18:06'),
+(93, 142, 6, NULL, NULL, '1.00', '2025-06-15 17:18:07'),
+(94, 142, 7, NULL, NULL, '1.00', '2025-06-15 17:18:08'),
+(95, 142, 8, NULL, NULL, '1.00', '2025-06-15 17:18:09'),
+(96, 142, 9, NULL, NULL, '1.00', '2025-06-15 17:18:14'),
+(97, 143, 5, NULL, NULL, '0.00', '2025-06-15 17:18:16'),
+(98, 143, 6, NULL, NULL, '1.00', '2025-06-15 17:18:20'),
+(99, 143, 7, NULL, NULL, '0.00', '2025-06-15 17:18:22'),
+(100, 143, 8, NULL, NULL, '1.00', '2025-06-15 17:18:24'),
+(101, 143, 9, NULL, NULL, '1.00', '2025-06-15 17:18:27'),
+(102, 144, 5, NULL, NULL, '1.00', '2025-06-15 17:18:32'),
+(103, 144, 6, NULL, NULL, '1.00', '2025-06-15 17:18:34'),
+(104, 144, 7, NULL, NULL, '1.50', '2025-06-15 17:18:39'),
+(105, 144, 8, NULL, NULL, '1.00', '2025-06-15 17:18:41'),
+(106, 144, 9, NULL, NULL, '1.00', '2025-06-15 17:18:43'),
+(107, 145, 5, NULL, NULL, '1.00', '2025-06-15 17:29:59'),
+(108, 145, 6, NULL, NULL, '1.00', '2025-06-15 17:18:52'),
+(109, 145, 7, NULL, NULL, '1.00', '2025-06-15 17:18:54'),
+(110, 145, 8, NULL, NULL, '1.00', '2025-06-15 17:18:57'),
+(111, 145, 9, NULL, NULL, '1.00', '2025-06-15 17:19:00'),
+(112, 128, 10, NULL, NULL, '1.00', '2025-06-20 07:11:38'),
+(113, 129, 10, NULL, NULL, '0.50', '2025-06-19 10:48:07'),
+(114, 130, 10, NULL, NULL, '0.20', '2025-07-02 20:00:28'),
+(115, 132, 10, NULL, NULL, '1.00', '2025-06-18 14:06:12'),
+(116, 134, 10, NULL, NULL, '1.00', '2025-06-18 14:06:13'),
+(117, 131, 10, NULL, NULL, '1.00', '2025-06-18 14:06:16'),
+(118, 133, 10, NULL, NULL, '1.00', '2025-06-18 14:06:19'),
+(119, 135, 10, NULL, NULL, '1.00', '2025-06-18 14:06:21'),
+(120, 136, 10, NULL, NULL, '1.00', '2025-06-18 14:06:26'),
+(121, 137, 10, NULL, NULL, '1.00', '2025-06-18 14:06:27'),
+(122, 138, 10, NULL, NULL, '1.00', '2025-06-18 14:06:29'),
+(123, 139, 10, NULL, NULL, '1.00', '2025-06-18 14:06:30'),
+(124, 140, 10, NULL, NULL, '1.00', '2025-06-18 14:06:31'),
+(125, 141, 10, NULL, NULL, '1.00', '2025-06-18 14:06:33'),
+(126, 142, 10, NULL, NULL, '1.00', '2025-06-18 14:06:34'),
+(127, 143, 10, NULL, NULL, '1.00', '2025-06-18 14:06:36'),
+(128, 144, 10, NULL, NULL, '1.00', '2025-06-18 14:06:39'),
+(129, 145, 10, NULL, NULL, '1.00', '2025-06-18 14:06:41');
 
 -- --------------------------------------------------------
 
@@ -781,31 +781,31 @@ CREATE TABLE `resoluciones_banco_preguntas` (
   `id` int(11) NOT NULL,
   `alumno_id` int(11) DEFAULT NULL,
   `ejercicio_id` int(11) DEFAULT NULL,
-  `respuesta_texto` text DEFAULT NULL,
+  `respuesta_texto` text,
   `respuesta_id` int(11) DEFAULT NULL,
-  `puntuacion_obtenida` decimal(5,2) DEFAULT 0.00,
-  `fecha_respuesta` timestamp NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `puntuacion_obtenida` decimal(5,2) DEFAULT '0.00',
+  `fecha_respuesta` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Volcado de datos para la tabla `resoluciones_banco_preguntas`
 --
 
 INSERT INTO `resoluciones_banco_preguntas` (`id`, `alumno_id`, `ejercicio_id`, `respuesta_texto`, `respuesta_id`, `puntuacion_obtenida`, `fecha_respuesta`) VALUES
-(1, 129, 1, NULL, NULL, 0.30, '2025-06-18 15:28:29'),
-(2, 128, 1, NULL, NULL, 1.20, '2025-06-19 11:03:19'),
-(3, 128, 2, NULL, NULL, 0.10, '2025-06-18 15:22:49'),
-(4, 129, 2, NULL, NULL, 0.30, '2025-06-18 15:22:51'),
-(5, 130, 1, NULL, NULL, 0.00, '2025-06-19 16:45:36'),
-(6, 130, 2, NULL, NULL, 0.10, '2025-06-19 16:45:38'),
-(7, 131, 1, NULL, NULL, 0.60, '2025-06-19 10:48:24'),
-(8, 131, 2, NULL, NULL, 0.40, '2025-06-19 10:48:12'),
-(9, 132, 2, NULL, NULL, 0.50, '2025-06-19 10:48:14'),
-(10, 132, 1, NULL, NULL, 0.70, '2025-06-19 10:48:16'),
-(11, 133, 1, NULL, NULL, 0.50, '2025-06-19 10:48:26'),
-(12, 141, 1, NULL, NULL, 0.70, '2025-06-19 10:48:29'),
-(13, 145, 1, NULL, NULL, 0.50, '2025-06-19 11:03:50'),
-(14, 145, 2, NULL, NULL, 0.50, '2025-06-19 11:03:53');
+(1, 129, 1, NULL, NULL, '0.30', '2025-06-18 15:28:29'),
+(2, 128, 1, NULL, NULL, '1.00', '2025-07-02 16:59:02'),
+(3, 128, 2, NULL, NULL, '0.10', '2025-06-18 15:22:49'),
+(4, 129, 2, NULL, NULL, '0.30', '2025-06-18 15:22:51'),
+(5, 130, 1, NULL, NULL, '0.00', '2025-06-19 16:45:36'),
+(6, 130, 2, NULL, NULL, '0.00', '2025-07-02 20:00:27'),
+(7, 131, 1, NULL, NULL, '0.60', '2025-06-19 10:48:24'),
+(8, 131, 2, NULL, NULL, '0.40', '2025-06-19 10:48:12'),
+(9, 132, 2, NULL, NULL, '0.50', '2025-06-19 10:48:14'),
+(10, 132, 1, NULL, NULL, '0.70', '2025-06-19 10:48:16'),
+(11, 133, 1, NULL, NULL, '0.50', '2025-06-19 10:48:26'),
+(12, 141, 1, NULL, NULL, '0.70', '2025-06-19 10:48:29'),
+(13, 145, 1, NULL, NULL, '0.50', '2025-06-19 11:03:50'),
+(14, 145, 2, NULL, NULL, '0.50', '2025-06-19 11:03:53');
 
 -- --------------------------------------------------------
 
@@ -816,9 +816,9 @@ INSERT INTO `resoluciones_banco_preguntas` (`id`, `alumno_id`, `ejercicio_id`, `
 CREATE TABLE `respuestas` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `ejercicio_id` int(11) DEFAULT NULL,
-  `texto_respuesta` text DEFAULT NULL,
-  `es_correcta` tinyint(1) DEFAULT 0
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `texto_respuesta` text,
+  `es_correcta` tinyint(1) DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -830,11 +830,11 @@ CREATE TABLE `tareas_asignadas` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `alumno_id` int(11) DEFAULT NULL,
   `ejercicio_id` bigint(20) DEFAULT NULL,
-  `fecha_asignacion` timestamp NOT NULL DEFAULT current_timestamp(),
+  `fecha_asignacion` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `fecha_limite_entrega` date DEFAULT NULL,
-  `completado` tinyint(1) DEFAULT 0,
+  `completado` tinyint(1) DEFAULT '0',
   `estado` enum('sin_enviar','enviado','resuelto') DEFAULT 'sin_enviar'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Volcado de datos para la tabla `tareas_asignadas`
@@ -860,7 +860,7 @@ CREATE TABLE `temas` (
   `id` int(11) NOT NULL,
   `asignatura_id` bigint(20) NOT NULL,
   `nombre` varchar(100) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `temas`
@@ -879,11 +879,11 @@ CREATE TABLE `usuarios` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `nombre` varchar(100) DEFAULT NULL,
   `apellido` varchar(100) DEFAULT NULL,
-  `email` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `password_hash` text DEFAULT NULL,
+  `email` varchar(255) CHARACTER SET utf8mb4 DEFAULT NULL,
+  `password_hash` text,
   `tipo` varchar(20) DEFAULT NULL,
   `fecha_registro` date DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `usuarios`
@@ -1203,7 +1203,7 @@ ALTER TABLE `examenes`
 -- AUTO_INCREMENT de la tabla `notas_examen_alumno`
 --
 ALTER TABLE `notas_examen_alumno`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=284;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=356;
 
 --
 -- AUTO_INCREMENT de la tabla `notas_finales_evaluacion`
@@ -1233,7 +1233,7 @@ ALTER TABLE `resoluciones_banco_preguntas`
 -- AUTO_INCREMENT de la tabla `tareas_asignadas`
 --
 ALTER TABLE `tareas_asignadas`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=59;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=67;
 
 --
 -- AUTO_INCREMENT de la tabla `temas`

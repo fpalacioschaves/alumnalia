@@ -1,4 +1,9 @@
 <?php
+// Mostrar errores para depuración
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
 require_once '../includes/db.php';
 require_once '../includes/auth.php';
 
@@ -26,78 +31,98 @@ if (!$alumno) {
     exit;
 }
 
-// Obtener rendimiento medio por etiqueta
+// Ejercicios tradicionales fallados
 $stmt = $pdo->prepare("
-    SELECT et.id, et.nombre,
-           COUNT(r.id) AS total_ejercicios,
-           AVG(r.puntuacion_obtenida) AS media
+    SELECT 
+        e.enunciado,
+        r.puntuacion_obtenida,
+        e.puntuacion AS puntuacion_maxima,
+        ex.titulo AS examen,
+        et.nombre AS etiqueta,
+        t.nombre AS tema
     FROM resoluciones r
     JOIN ejercicios e ON r.ejercicio_id = e.id
-    JOIN etiquetas et ON e.etiqueta_id = et.id
+    JOIN examenes ex ON e.examen_id = ex.id
+    LEFT JOIN etiquetas et ON e.etiqueta_id = et.id
+    LEFT JOIN temas t ON e.tema_id = t.id
     WHERE r.alumno_id = ?
-      AND e.etiqueta_id IS NOT NULL
-    GROUP BY et.id, et.nombre
-    HAVING COUNT(r.id) >= 3 AND AVG(r.puntuacion_obtenida) < 0.6
-    ORDER BY media ASC
+      AND r.puntuacion_obtenida <= (e.puntuacion / 2)
 ");
 $stmt->execute([$alumno_id]);
-$debilidades = $stmt->fetchAll();
+$fallos_ejercicios = $stmt->fetchAll();
 
-// Obtener ejercicios de refuerzo por etiqueta
-$ejercicios_refuerzo = [];
-foreach ($debilidades as $etiqueta) {
-    $stmt = $pdo->prepare("
-        SELECT e.id, e.enunciado, e.puntuacion
-        FROM ejercicios e
-        WHERE e.etiqueta_id = ? 
-        ORDER BY RAND()
-        LIMIT 3
-    ");
-    $stmt->execute([$etiqueta['id']]);
-    $ejercicios_refuerzo[$etiqueta['id']] = $stmt->fetchAll();
-}
+// Preguntas del banco de preguntas falladas
+$stmt = $pdo->prepare("
+    SELECT 
+        bp.enunciado,
+        r.puntuacion_obtenida,
+        bpe.puntuacion AS puntuacion_maxima,
+        ex.titulo AS examen,
+        bp.dificultad,
+        et.nombre AS etiqueta,
+        tm.nombre AS tema
+    FROM resoluciones_banco_preguntas r
+    JOIN banco_preguntas bp ON r.ejercicio_id = bp.id
+    JOIN banco_preguntas_en_examen bpe ON bp.id = bpe.pregunta_id
+    JOIN examenes ex ON bpe.examen_id = ex.id
+    LEFT JOIN etiquetas et ON bp.etiqueta_id = et.id
+    LEFT JOIN temas tm ON bp.tema_id = tm.id
+    WHERE r.alumno_id = ?
+    AND r.puntuacion_obtenida <= (bpe.puntuacion / 2)
+");
+$stmt->execute([$alumno_id]);
+$fallos_banco = $stmt->fetchAll();
 
 require_once '../includes/header.php';
 ?>
 
-<h2 class="mt-4">Plan de refuerzo para <?= htmlspecialchars($alumno['nombre'] . ' ' . $alumno['apellido']) ?></h2>
+<h2 class="mt-4">Ejercicios fallados por <?= htmlspecialchars($alumno['nombre'] . ' ' . $alumno['apellido']) ?></h2>
 <p class="text-muted">Curso: <?= htmlspecialchars($alumno['curso']) ?></p>
 
-<?php if (empty($debilidades)): ?>
-    <div class="alert alert-success">Este alumno no presenta debilidades destacadas en este momento.</div>
+<?php if (empty($fallos_ejercicios) && empty($fallos_banco)): ?>
+    <div class="alert alert-success">Este alumno no presenta errores por debajo del 50%.</div>
 <?php else: ?>
-    <?php foreach ($debilidades as $et): ?>
-        <div class="card mb-3">
-        <div class="card-header bg-warning-subtle d-flex justify-content-between align-items-center">
-    <div>
-        <span class="badge bg-warning text-dark"><?= htmlspecialchars($et['nombre']) ?></span>
-        <small class="text-muted ms-2">(<?= $et['total_ejercicios'] ?> ejercicios, media: <?= number_format($et['media'], 2) ?>)</small>
-    </div>
-</div>
-            <div class="card-body">
-                <?php if (!empty($ejercicios_refuerzo[$et['id']])): ?>
-                    <ul class="list-group">
-                        <?php foreach ($ejercicios_refuerzo[$et['id']] as $ej): ?>
-                            <li class="list-group-item d-flex justify-content-between align-items-center">
-                                <span><?= htmlspecialchars($ej['enunciado']) ?> (<?= $ej['puntuacion'] ?> pt)</span>
-                                <form method="POST" action="asignar_refuerzo.php" class="m-0">
-                                    <input type="hidden" name="alumno_id" value="<?= $alumno_id ?>">
-                                    <input type="hidden" name="ejercicio_id" value="<?= $ej['id'] ?>">
-                                    <button class="btn btn-sm btn-outline-success" title="Asignar ejercicio">
-                                        <i class="bi bi-check-circle"></i>
-                                    </button>
-                                </form>
-                            </li>
-                                                    <?php endforeach; ?>
-                    </ul>
-                <?php else: ?>
-                    <div class="text-muted">No hay ejercicios de refuerzo disponibles para esta etiqueta.</div>
-                <?php endif; ?>
-            </div>
-        </div>
-    <?php endforeach; ?>
+
+    <?php if (!empty($fallos_ejercicios)): ?>
+        <h4 class="mt-4">❌ Ejercicios tradicionales fallados</h4>
+        <ul class="list-group mb-4">
+            <?php foreach ($fallos_ejercicios as $ej): ?>
+                <li class="list-group-item">
+                    <strong>Examen:</strong> <?= htmlspecialchars($ej['examen']) ?><br>
+                    <strong>Enunciado:</strong> <?= htmlspecialchars($ej['enunciado']) ?><br>
+                    <strong>Puntuación:</strong> <?= $ej['puntuacion_obtenida'] ?> / <?= $ej['puntuacion_maxima'] ?><br>
+                    <?php if ($ej['etiqueta']): ?>
+                        <span class="badge bg-warning text-dark">Etiqueta: <?= htmlspecialchars($ej['etiqueta']) ?></span>
+                    <?php endif; ?>
+                    <?php if ($ej['tema']): ?>
+                        <span class="badge bg-info text-dark">Tema: <?= htmlspecialchars($ej['tema']) ?></span>
+                    <?php endif; ?>
+                </li>
+            <?php endforeach; ?>
+        </ul>
+    <?php endif; ?>
+
+    <?php if (!empty($fallos_banco)): ?>
+        <h4 class="mt-4">❌ Preguntas del banco falladas</h4>
+        <ul class="list-group">
+            <?php foreach ($fallos_banco as $bp): ?>
+                <li class="list-group-item">
+                    <strong>Examen:</strong> <?= htmlspecialchars($bp['examen']) ?><br>
+                    <strong>Pregunta:</strong> <?= htmlspecialchars($bp['enunciado']) ?><br>
+                    <strong>Puntuación:</strong> <?= $bp['puntuacion_obtenida'] ?> / <?= $bp['puntuacion_maxima'] ?><br>
+                    <?php if ($bp['etiqueta']): ?>
+                        <span class="badge bg-warning text-dark">Etiqueta: <?= htmlspecialchars($bp['etiqueta']) ?></span>
+                    <?php endif; ?>
+                    <?php if ($bp['tema']): ?>
+                        <span class="badge bg-info text-dark">Tema: <?= htmlspecialchars($bp['tema']) ?></span>
+                    <?php endif; ?>
+                </li>
+            <?php endforeach; ?>
+        </ul>
+    <?php endif; ?>
+
 <?php endif; ?>
 
-<a href="alumnos.php" class="btn btn-secondary">← Volver a alumnos</a>
+<a href="alumnos.php" class="btn btn-secondary mt-4">← Volver a alumnos</a>
 
 <?php require_once '../includes/footer.php'; ?>
