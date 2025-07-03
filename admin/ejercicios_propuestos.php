@@ -4,6 +4,9 @@ require_once '../includes/auth.php';
 redirigir_si_no_autenticado();
 solo_admin();
 
+require_once '../includes/Parsedown.php';
+$Parsedown = new Parsedown();
+
 require_once '../includes/header.php';
 
 // Obtener filtros
@@ -12,13 +15,19 @@ $etiqueta_id = $_GET['etiqueta_id'] ?? '';
 $dificultad = $_GET['dificultad'] ?? '';
 
 // Obtener listas para los select
-$temas = $pdo->query("SELECT t.id, t.nombre, a.nombre AS asignatura FROM temas t JOIN asignaturas a ON t.asignatura_id = a.id ORDER BY a.nombre, t.nombre")->fetchAll();
+$temas = $pdo->query("
+    SELECT t.id, t.nombre, a.nombre AS asignatura
+    FROM temas t
+    JOIN asignaturas a ON t.asignatura_id = a.id
+    ORDER BY a.nombre, t.nombre
+")->fetchAll();
+
 $etiquetas = $pdo->query("SELECT id, nombre FROM etiquetas ORDER BY nombre")->fetchAll();
 
 // Preparar consulta de ejercicios
 $sql = "SELECT ep.*, t.nombre AS tema, e.nombre AS etiqueta
         FROM ejercicios_propuestos ep
-        JOIN temas t ON ep.tema_id = t.id
+        LEFT JOIN temas t ON ep.tema_id = t.id
         JOIN etiquetas e ON ep.etiqueta_id = e.id
         WHERE 1";
 $params = [];
@@ -97,24 +106,56 @@ $ejercicios = $stmt->fetchAll();
     </thead>
     <tbody>
         <?php foreach ($ejercicios as $ej): ?>
-        <tr>
-            <td><?= htmlspecialchars($ej['tema']) ?></td>
+        <tr class="fila-ejercicio"
+            style="cursor: pointer;"
+            data-enunciado="<?= htmlspecialchars($Parsedown->text($ej['enunciado']), ENT_QUOTES) ?>">
+            <td><?= htmlspecialchars($ej['tema'] ?? 'Sin tema') ?></td>
             <td><?= htmlspecialchars($ej['etiqueta']) ?></td>
             <td><?= ucfirst($ej['tipo']) ?></td>
             <td><?= ucfirst($ej['dificultad']) ?></td>
-            <td><?= nl2br(htmlspecialchars(substr($ej['enunciado'], 0, 100))) ?>...</td>
-            <td>
-                <a href="ejercicio_propuesto_editar.php?id=<?= $ej['id'] ?>" class="btn btn-warning btn-sm">
+            <td><?= $Parsedown->text(substr($ej['enunciado'], 0, 100)) . '...' ?></td>
+            <td class="text-nowrap">
+                <a href="ejercicio_propuesto_editar.php?id=<?= $ej['id'] ?>" class="btn btn-warning btn-sm" title="Editar">
                     <i class="bi bi-pencil"></i>
                 </a>
-                <a href="ejercicio_propuesto_eliminar.php?id=<?= $ej['id'] ?>" class="btn btn-danger btn-sm" onclick="return confirm('¿Eliminar este ejercicio?');">
+                <a href="ejercicio_propuesto_eliminar.php?id=<?= $ej['id'] ?>" class="btn btn-danger btn-sm" onclick="return confirm('¿Eliminar este ejercicio?');" title="Eliminar">
                     <i class="bi bi-trash"></i>
+                </a>
+                <a href="asignar_ejercicio.php?ejercicio_id=<?= $ej['id'] ?>" class="btn btn-outline-primary btn-sm" title="Asignar a alumno">
+                    <i class="bi bi-person-plus"></i>
                 </a>
             </td>
         </tr>
         <?php endforeach; ?>
     </tbody>
 </table>
+
+<!-- Modal para mostrar el enunciado completo -->
+<div class="modal fade" id="modalEnunciado" tabindex="-1" aria-labelledby="modalEnunciadoLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalEnunciadoLabel">Ejercicio completo</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+      </div>
+      <div class="modal-body" id="modalEnunciadoCuerpo"></div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+document.querySelectorAll('.fila-ejercicio').forEach(row => {
+    row.addEventListener('click', function () {
+        const html = this.dataset.enunciado;
+        document.getElementById('modalEnunciadoCuerpo').innerHTML = html;
+        const modal = new bootstrap.Modal(document.getElementById('modalEnunciado'));
+        modal.show();
+    });
+});
+</script>
 
 <a href="dashboard.php" class="btn btn-secondary">← Volver al panel</a>
 

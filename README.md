@@ -4,4 +4,4 @@ al alumno una serie de ejercicios almacenados en el sistema
 
 Cambios: 
 
-En Debilidades, añadir un botón que me permita generar actividades usando como referencia la etiqueta y el texto de los conocimientos que no controla,que aparecen en la lista de Debilidades
+- Mandar notificación al alumno

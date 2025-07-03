@@ -38,13 +38,16 @@ $stmt = $pdo->prepare("
         r.puntuacion_obtenida,
         e.puntuacion AS puntuacion_maxima,
         ex.titulo AS examen,
+        ex.asignatura_id AS asignatura_id,
         et.nombre AS etiqueta, et.id AS etiqueta_id,
+        asignatura.nombre AS asignatura,
         t.nombre AS tema
     FROM resoluciones r
     JOIN ejercicios e ON r.ejercicio_id = e.id
     JOIN examenes ex ON e.examen_id = ex.id
     LEFT JOIN etiquetas et ON e.etiqueta_id = et.id
     LEFT JOIN temas t ON e.tema_id = t.id
+    LEFT JOIN asignaturas asignatura ON ex.asignatura_id = asignatura.id
     WHERE r.alumno_id = ?
       AND r.puntuacion_obtenida <= (e.puntuacion / 2)
 ");
@@ -93,14 +96,18 @@ require_once '../includes/header.php';
                     <strong>Puntuación:</strong> <?= $ej['puntuacion_obtenida'] ?> / <?= $ej['puntuacion_maxima'] ?><br>
                     <?php if ($ej['etiqueta']): ?>
                         <span class="badge bg-warning text-dark">Etiqueta: <?= htmlspecialchars($ej['etiqueta']) ?></span>
+                        
                     <?php endif; ?>
+                    <span class="badge bg-warning text-dark">Asignatura: <?= htmlspecialchars($ej['asignatura']) ?> </span>
                     <?php if ($ej['tema']): ?>
-                        <span class="badge bg-info text-dark">Tema: <?= htmlspecialchars($ej['tema']) ?></span>
+                        <span class="badge bg-info text-dark">Tema: <?= htmlspecialchars($ej['tema']) ?> </span>
                     <?php endif; ?>
                     <form method="POST" action="generar_actividad_ia.php" class="d-inline">
                         <input type="hidden" name="alumno_id" value="<?= $alumno_id ?>">
                         <input type="hidden" name="etiqueta_id" value="<?= $ej['etiqueta_id'] ?>">
                         <input type="hidden" name="etiqueta_nombre" value="<?= htmlspecialchars($ej['etiqueta']) ?>">
+                        <input type="hidden" name="tema" value="<?= $ej['tema'] ?>">
+                        <input type="hidden" name="asignatura" value="<?= $ej['asignatura'] ?>">
                         <button class="btn btn-sm btn-outline-primary" title="Generar actividad IA">
                             <i class="bi bi-robot"></i> Generar actividad IA
                         </button>

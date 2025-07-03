@@ -90,6 +90,9 @@ $alumnos = $stmt->fetchAll();
                 <a href="alumno_refuerzo.php?id=<?= $al['id'] ?>" class="btn btn-outline-info btn-sm">
                     <i class="bi bi-lightbulb"></i> Debilidades
                 </a>
+                <a href="alumno_tareas.php?id=<?= $al['id'] ?>" class="btn btn-outline-primary btn-sm" title="Ver tareas asignadas">
+                    <i class="bi bi-list-task"></i> Tareas
+                </a>
             </td>
         </tr>
     <?php endforeach; ?>
