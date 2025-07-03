@@ -38,7 +38,7 @@ $stmt = $pdo->prepare("
         r.puntuacion_obtenida,
         e.puntuacion AS puntuacion_maxima,
         ex.titulo AS examen,
-        et.nombre AS etiqueta,
+        et.nombre AS etiqueta, et.id AS etiqueta_id,
         t.nombre AS tema
     FROM resoluciones r
     JOIN ejercicios e ON r.ejercicio_id = e.id
@@ -59,7 +59,7 @@ $stmt = $pdo->prepare("
         bpe.puntuacion AS puntuacion_maxima,
         ex.titulo AS examen,
         bp.dificultad,
-        et.nombre AS etiqueta,
+        et.nombre AS etiqueta, et.id AS etiqueta_id,
         tm.nombre AS tema
     FROM resoluciones_banco_preguntas r
     JOIN banco_preguntas bp ON r.ejercicio_id = bp.id
@@ -97,6 +97,14 @@ require_once '../includes/header.php';
                     <?php if ($ej['tema']): ?>
                         <span class="badge bg-info text-dark">Tema: <?= htmlspecialchars($ej['tema']) ?></span>
                     <?php endif; ?>
+                    <form method="POST" action="generar_actividad_ia.php" class="d-inline">
+                        <input type="hidden" name="alumno_id" value="<?= $alumno_id ?>">
+                        <input type="hidden" name="etiqueta_id" value="<?= $ej['etiqueta_id'] ?>">
+                        <input type="hidden" name="etiqueta_nombre" value="<?= htmlspecialchars($ej['etiqueta']) ?>">
+                        <button class="btn btn-sm btn-outline-primary" title="Generar actividad IA">
+                            <i class="bi bi-robot"></i> Generar actividad IA
+                        </button>
+                    </form>
                 </li>
             <?php endforeach; ?>
         </ul>
@@ -116,12 +124,24 @@ require_once '../includes/header.php';
                     <?php if ($bp['tema']): ?>
                         <span class="badge bg-info text-dark">Tema: <?= htmlspecialchars($bp['tema']) ?></span>
                     <?php endif; ?>
+                    <form method="POST" action="generar_actividad_ia.php" class="d-inline">
+                        <input type="hidden" name="alumno_id" value="<?= $alumno_id ?>">
+                        <input type="hidden" name="etiqueta_id" value="<?= $bp['etiqueta_id'] ?>">
+                        <input type="hidden" name="etiqueta_nombre" value="<?= htmlspecialchars($bp['etiqueta']) ?>">
+                        <button class="btn btn-sm btn-outline-primary" title="Generar actividad IA">
+                            <i class="bi bi-robot"></i> Generar actividad IA
+                        </button>
+                    </form>
                 </li>
             <?php endforeach; ?>
         </ul>
     <?php endif; ?>
 
 <?php endif; ?>
+
+
+
+<br>
 
 <a href="alumnos.php" class="btn btn-secondary mt-4">← Volver a alumnos</a>
 
