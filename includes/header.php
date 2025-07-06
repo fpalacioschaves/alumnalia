@@ -37,6 +37,7 @@ require_once 'auth.php';
                 <li><a class="dropdown-item" href="cursos.php">Cursos</a></li>
                 <li><a class="dropdown-item" href="asignaturas.php">Asignaturas</a></li>
                 <li><a class="dropdown-item" href="temas.php">Temas</a></li>
+                <li><a class="dropdown-item" href="ver_resultados_aprendizaje.php">Resultados de Aprendizaje</a></li>
                 <li><a class="dropdown-item" href="etiquetas.php">Etiquetas</a></li>
             </ul>
         </li>
@@ -67,6 +68,18 @@ require_once 'auth.php';
          <li class="nav-item">
           <a class="nav-link" href="panel_indicadores.php"><i class="bi bi-bar-chart-line"></i> Indicadores</a>
         </li>
+
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="empresaDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <i class="bi bi-building"></i> Empresas
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="empresaDropdown">
+            <li><a class="dropdown-item" href="empresas.php">Listado de empresas</a></li>
+            <li><a class="dropdown-item" href="alumno_empresa_asignar.php">Asignar alumno a empresa</a></li>
+          </ul>
+        </li>
+
+
 
 
       </ul>

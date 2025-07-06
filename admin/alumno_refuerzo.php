@@ -63,6 +63,7 @@ $stmt = $pdo->prepare("
         ex.titulo AS examen,
         bp.dificultad,
         et.nombre AS etiqueta, et.id AS etiqueta_id,
+        asignatura.nombre AS asignatura,
         tm.nombre AS tema
     FROM resoluciones_banco_preguntas r
     JOIN banco_preguntas bp ON r.ejercicio_id = bp.id
@@ -70,6 +71,7 @@ $stmt = $pdo->prepare("
     JOIN examenes ex ON bpe.examen_id = ex.id
     LEFT JOIN etiquetas et ON bp.etiqueta_id = et.id
     LEFT JOIN temas tm ON bp.tema_id = tm.id
+    LEFT JOIN asignaturas asignatura ON ex.asignatura_id = asignatura.id
     WHERE r.alumno_id = ?
     AND r.puntuacion_obtenida <= (bpe.puntuacion / 2)
 ");
@@ -128,6 +130,7 @@ require_once '../includes/header.php';
                     <?php if ($bp['etiqueta']): ?>
                         <span class="badge bg-warning text-dark">Etiqueta: <?= htmlspecialchars($bp['etiqueta']) ?></span>
                     <?php endif; ?>
+                    <span class="badge bg-warning text-dark">Asignatura: <?= htmlspecialchars($bp['asignatura']) ?> </span>
                     <?php if ($bp['tema']): ?>
                         <span class="badge bg-info text-dark">Tema: <?= htmlspecialchars($bp['tema']) ?></span>
                     <?php endif; ?>
