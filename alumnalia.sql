@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 05-07-2025 a las 20:08:57
+-- Tiempo de generación: 09-07-2025 a las 12:36:47
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -176,6 +176,8 @@ CREATE TABLE `alumnos_empresas` (
 --
 
 INSERT INTO `alumnos_empresas` (`alumno_id`, `empresa_id`, `fecha_inicio`, `fecha_fin`, `tutor_nombre`, `tutor_email`, `tutor_telefono`) VALUES
+(128, 1, '2025-08-04', '2025-08-10', 'Tutor View', 'fpalacioschaves@gmail.com', '655925498'),
+(130, 1, '2025-07-01', '2025-07-06', 'Tutor View', 'fpalacioschaves@gmail.com', '655925498'),
 (151, 1, '2025-07-01', '2025-07-01', 'Tutor View', 'fpalacioschaves@gmail.com', '655925498'),
 (152, 1, '2025-07-01', '2025-10-01', NULL, NULL, NULL),
 (155, 1, '2025-07-05', '2025-07-06', 'ghgjfghjfthj', 'fpalacioschaves@gmail.com', '655925498');
@@ -319,57 +321,106 @@ CREATE TABLE `criterios_evaluacion` (
 --
 
 INSERT INTO `criterios_evaluacion` (`id`, `resultado_aprendizaje_id`, `descripcion`) VALUES
-(1, 1, 'Se han analizado los sistemas lógicos de almacenamiento y sus características.'),
-(2, 1, 'Se han identificado los distintos tipos de bases de datos según el modelo de datos utilizado.'),
-(3, 1, 'Se han identificado los distintos tipos de bases de datos en función de la ubicación de la información.'),
-(4, 1, 'Se ha evaluado la utilidad de un sistema gestor de bases de datos.'),
-(5, 1, 'Se han clasificado los sistemas gestores de bases de datos.'),
-(6, 1, 'Se ha reconocido la función de cada uno de los elementos de un sistema gestor de bases de datos.'),
-(7, 1, 'Se ha reconocido la utilidad de las bases de datos distribuidas.'),
-(8, 1, 'Se han analizado las políticas de fragmentación de la información.'),
-(9, 2, 'Se ha analizado el formato de almacenamiento de la información.'),
-(10, 2, 'Se han creado las tablas y las relaciones entre ellas.'),
-(11, 2, 'Se han seleccionado los tipos de datos adecuados.'),
-(12, 2, 'Se han definido los campos clave en las tablas.'),
-(13, 2, 'Se han implantado las restricciones reflejadas en el diseño lógico.'),
-(14, 2, 'Se han utilizado asistentes, herramientas gráficas y los lenguajes de definición y control de datos.'),
-(15, 3, 'Se han identificado las herramientas y sentencias para realizar consultas.'),
-(16, 3, 'Se han realizado consultas simples sobre una tabla.'),
-(17, 3, 'Se han realizado consultas sobre el contenido de varias tablas mediante composiciones internas.'),
-(18, 3, 'Se han realizado consultas sobre el contenido de varias tablas mediante composiciones externas.'),
-(19, 3, 'Se han realizado consultas resumen.'),
-(20, 3, 'Se han realizado consultas con subconsultas.'),
-(21, 4, 'Se han identificado las herramientas y sentencias para modificar el contenido de la base de datos.'),
-(22, 4, 'Se han insertado, borrado y actualizado datos en las tablas.'),
-(23, 4, 'Se ha incluido en una tabla la información resultante de la ejecución de una consulta.'),
-(24, 4, 'Se han diseñado guiones de sentencias para llevar a cabo tareas complejas.'),
-(25, 4, 'Se ha reconocido el funcionamiento de las transacciones.'),
-(26, 4, 'Se han anulado parcial o totalmente los cambios producidos por una transacción.'),
-(27, 4, 'Se han identificado los efectos de las distintas políticas de bloqueo de registros.'),
-(28, 4, 'Se han adoptado medidas para mantener la integridad y consistencia de la información.'),
-(29, 5, 'Se han identificado las diversas formas de automatizar tareas.'),
-(30, 5, 'Se han reconocido los métodos de ejecución de guiones.'),
-(31, 5, 'Se han identificado las herramientas disponibles para editar guiones.'),
-(32, 5, 'Se han definido y utilizado guiones para automatizar tareas.'),
-(33, 5, 'Se han utilizado estructuras de control de flujo.'),
-(34, 5, 'Se ha hecho uso de las funciones proporcionadas por el sistema gestor.'),
-(35, 5, 'Se han definido funciones de usuario.'),
-(36, 5, 'Se han definido disparadores.'),
-(37, 5, 'Se han utilizado cursores.'),
-(38, 6, 'Se han utilizado herramientas gráficas para representar el diseño lógico.'),
-(39, 6, 'Se han identificado las tablas del diseño lógico.'),
-(40, 6, 'Se han identificado los campos que forman parte de las tablas del diseño lógico.'),
-(41, 6, 'Se han analizado las relaciones entre las tablas del diseño lógico.'),
-(42, 6, 'Se han identificado los campos clave.'),
-(43, 6, 'Se han aplicado reglas de integridad.'),
-(44, 6, 'Se han aplicado reglas de normalización.'),
-(45, 6, 'Se han analizado y documentado las restricciones que no pueden plasmarse en el diseño lógico.'),
-(46, 7, 'Se han identificado las características de las bases de datos objeto-relacionales.'),
-(47, 7, 'Se han creado tipos de datos objeto, sus atributos y métodos.'),
-(48, 7, 'Se han creado tablas de objetos y tablas de columnas tipo objeto.'),
-(49, 7, 'Se han creado tipos de datos colección.'),
-(50, 7, 'Se han realizado consultas.'),
-(51, 7, 'Se ha modificado la información almacenada manteniendo la integridad y consistencia de los datos.');
+(159, 1, 'Se han analizado los sistemas lógicos de almacenamiento y sus características.'),
+(160, 1, 'Se han identificado los distintos tipos de bases de datos según el modelo de datos utilizado.'),
+(161, 1, 'Se han identificado los distintos tipos de bases de datos en función de la ubicación de la información.'),
+(162, 1, 'Se ha evaluado la utilidad de un sistema gestor de bases de datos.'),
+(163, 1, 'Se han clasificado los sistemas gestores de bases de datos.'),
+(164, 1, 'Se ha reconocido la función de cada uno de los elementos de un sistema gestor de bases de datos.'),
+(165, 1, 'Se ha reconocido la utilidad de las bases de datos distribuidas.'),
+(166, 1, 'Se han analizado las políticas de fragmentación de la información.'),
+(167, 2, 'Se ha analizado el formato de almacenamiento de la información.'),
+(168, 2, 'Se han creado las tablas y las relaciones entre ellas.'),
+(169, 2, 'Se han seleccionado los tipos de datos adecuados.'),
+(170, 2, 'Se han definido los campos clave en las tablas.'),
+(171, 2, 'Se han implantado las restricciones reflejadas en el diseño lógico.'),
+(172, 2, 'Se han utilizado asistentes, herramientas gráficas y los lenguajes de definición y control de datos.'),
+(173, 3, 'Se han identificado las herramientas y sentencias para realizar consultas.'),
+(174, 3, 'Se han realizado consultas simples sobre una tabla.'),
+(175, 3, 'Se han realizado consultas sobre el contenido de varias tablas mediante composiciones internas.'),
+(176, 3, 'Se han realizado consultas sobre el contenido de varias tablas mediante composiciones externas.'),
+(177, 3, 'Se han realizado consultas resumen.'),
+(178, 3, 'Se han realizado consultas con subconsultas.'),
+(179, 4, 'Se han identificado las herramientas y sentencias para modificar el contenido de la base de datos.'),
+(180, 4, 'Se han insertado, borrado y actualizado datos en las tablas.'),
+(181, 4, 'Se ha incluido en una tabla la información resultante de la ejecución de una consulta.'),
+(182, 4, 'Se han diseñado guiones de sentencias para llevar a cabo tareas complejas.'),
+(183, 4, 'Se ha reconocido el funcionamiento de las transacciones.'),
+(184, 4, 'Se han anulado parcial o totalmente los cambios producidos por una transacción.'),
+(185, 4, 'Se han identificado los efectos de las distintas políticas de bloqueo de registros.'),
+(186, 4, 'Se han adoptado medidas para mantener la integridad y consistencia de la información.'),
+(187, 5, 'Se han identificado las diversas formas de automatizar tareas.'),
+(188, 5, 'Se han reconocido los métodos de ejecución de guiones.'),
+(189, 5, 'Se han identificado las herramientas disponibles para editar guiones.'),
+(190, 5, 'Se han definido y utilizado guiones para automatizar tareas.'),
+(191, 5, 'Se han utilizado estructuras de control de flujo.'),
+(192, 5, 'Se ha hecho uso de las funciones proporcionadas por el sistema gestor.'),
+(193, 5, 'Se han definido funciones de usuario.'),
+(194, 5, 'Se han definido disparadores.'),
+(195, 5, 'Se han utilizado cursores.'),
+(196, 6, 'Se han utilizado herramientas gráficas para representar el diseño lógico.'),
+(197, 6, 'Se han identificado las tablas del diseño lógico.'),
+(198, 6, 'Se han identificado los campos que forman parte de las tablas del diseño lógico.'),
+(199, 6, 'Se han analizado las relaciones entre las tablas del diseño lógico.'),
+(200, 6, 'Se han identificado los campos clave.'),
+(201, 6, 'Se han aplicado reglas de integridad.'),
+(202, 6, 'Se han aplicado reglas de normalización.'),
+(203, 6, 'Se han analizado y documentado las restricciones que no pueden plasmarse en el diseño lógico.'),
+(204, 7, 'Se han identificado las características de las bases de datos objeto-relacionales.'),
+(205, 7, 'Se han creado tipos de datos objeto, sus atributos y métodos.'),
+(206, 7, 'Se han creado tablas de objetos y tablas de columnas tipo objeto.'),
+(207, 7, 'Se han creado tipos de datos colección.'),
+(208, 7, 'Se han realizado consultas.'),
+(209, 7, 'Se ha modificado la información almacenada manteniendo la integridad y consistencia de los datos.'),
+(210, 8, 'Identifica características generales de los lenguajes de marcas.'),
+(211, 8, 'Reconoce ventajas en el tratamiento de la información.'),
+(212, 8, 'Clasifica y sitúa los lenguajes más relevantes.'),
+(213, 8, 'Diferencia ámbitos de aplicación.'),
+(214, 8, 'Reconoce la necesidad de un lenguaje de propósito general.'),
+(215, 8, 'Analiza características del XML.'),
+(216, 8, 'Identifica la estructura y reglas sintácticas de un documento XML.'),
+(217, 8, 'Contrasta la importancia de la correcta formación de documentos XML.'),
+(218, 8, 'Identifica ventajas de los espacios de nombres.'),
+(219, 9, 'Identifica y clasifica los lenguajes web y sus versiones.'),
+(220, 9, 'Analiza la estructura de un documento HTML.'),
+(221, 9, 'Reconoce funcionalidad básica de etiquetas y atributos.'),
+(222, 9, 'Establece semejanzas y diferencias entre HTML y XHTML.'),
+(223, 9, 'Reconoce utilidad de XHTML en sistemas de información.'),
+(224, 9, 'Aplica herramientas en la creación de documentos web.'),
+(225, 9, 'Identifica ventajas del uso de CSS.'),
+(226, 9, 'Aplica hojas de estilo.'),
+(227, 10, 'Identifica ventajas de la sindicación de contenidos.'),
+(228, 10, 'Define ámbitos de aplicación.'),
+(229, 10, 'Analiza tecnologías base para sindicación.'),
+(230, 10, 'Identifica estructura y sintaxis de un canal.'),
+(231, 10, 'Crea y valida canales.'),
+(232, 10, 'Comprueba funcionalidad y acceso.'),
+(233, 10, 'Utiliza herramientas específicas como agregadores.'),
+(234, 11, 'Establece necesidad de describir reglas de los documentos XML.'),
+(235, 11, 'Identifica tecnologías para definir documentos XML (schemas, DTD...).'),
+(236, 11, 'Analiza su estructura y sintaxis.'),
+(237, 11, 'Crea descripciones (schemas, DTD).'),
+(238, 11, 'Utiliza esas descripciones para validar documentos.'),
+(239, 11, 'Asocia descripciones a los documentos.'),
+(240, 11, 'Emplea herramientas específicas.'),
+(241, 11, 'Documenta las descripciones.'),
+(242, 12, 'Identifica la necesidad de conversión de XML.'),
+(243, 12, 'Establece ámbitos de aplicación.'),
+(244, 12, 'Analiza tecnologías implicadas.'),
+(245, 12, 'Describe la sintaxis específica de conversión (XSLT, etc.).'),
+(246, 12, 'Crea especificaciones de conversión.'),
+(247, 12, 'Identifica y caracteriza herramientas específicas.'),
+(248, 12, 'Realiza conversiones a distintos formatos.'),
+(249, 12, 'Documenta y depura dichas especificaciones.'),
+(250, 13, 'Identifica principales métodos de almacenamiento para XML.'),
+(251, 13, 'Reconoce inconvenientes del XML como formato de almacenamiento.'),
+(252, 13, 'Establece tecnologías eficientes según características.'),
+(253, 13, 'Utiliza SGBD relacionales para almacenar XML.'),
+(254, 13, 'Emplea técnicas para generar XML desde bases relacionales.'),
+(255, 13, 'Identifica sistemas gestores nativos de XML.'),
+(256, 13, 'Instala y analiza SGBD nativos XML.'),
+(257, 13, 'Gestiona información en dichos sistemas.'),
+(258, 13, 'Identifica lenguajes y herramientas de tratamiento y almacenamiento.');
 
 -- --------------------------------------------------------
 
@@ -606,7 +657,7 @@ CREATE TABLE `notas_examen_alumno` (
 --
 
 INSERT INTO `notas_examen_alumno` (`id`, `examen_id`, `alumno_id`, `nota_total`, `fecha_registro`) VALUES
-(1, 3, 128, 2.10, '2025-06-19 10:47:34'),
+(1, 3, 128, 2.50, '2025-06-19 10:47:34'),
 (2, 3, 129, 1.10, '2025-06-19 10:47:34'),
 (3, 3, 130, 0.20, '2025-06-19 10:47:34'),
 (4, 3, 131, 2.00, '2025-06-19 10:47:34'),
@@ -624,7 +675,7 @@ INSERT INTO `notas_examen_alumno` (`id`, `examen_id`, `alumno_id`, `nota_total`,
 (16, 3, 143, 1.00, '2025-06-19 10:47:34'),
 (17, 3, 144, 1.00, '2025-06-19 10:47:34'),
 (18, 3, 145, 2.00, '2025-06-19 10:47:34'),
-(55, 2, 128, 5.50, '2025-06-19 10:49:39'),
+(55, 2, 128, 6.40, '2025-06-19 10:49:39'),
 (56, 2, 129, 6.30, '2025-06-19 10:49:39'),
 (57, 2, 130, 9.00, '2025-06-19 10:49:39'),
 (58, 2, 131, 6.80, '2025-06-19 10:49:39'),
@@ -791,6 +842,18 @@ CREATE TABLE `ra_empresa_alumno` (
   `fecha_registro` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Volcado de datos para la tabla `ra_empresa_alumno`
+--
+
+INSERT INTO `ra_empresa_alumno` (`id`, `alumno_id`, `empresa_id`, `ra_id`, `trabajado`, `observaciones`, `fecha_registro`) VALUES
+(5, 130, 1, 1, 0, NULL, '2025-07-05 18:20:35'),
+(6, 130, 1, 3, 0, NULL, '2025-07-05 18:20:35'),
+(7, 128, 1, 6, 0, NULL, '2025-07-05 19:37:10'),
+(8, 128, 1, 7, 0, NULL, '2025-07-05 19:37:10'),
+(9, 128, 1, 8, 0, NULL, '2025-07-05 19:37:10'),
+(10, 128, 1, 9, 0, NULL, '2025-07-05 19:37:10');
+
 -- --------------------------------------------------------
 
 --
@@ -836,7 +899,7 @@ INSERT INTO `resoluciones` (`id`, `alumno_id`, `ejercicio_id`, `respuesta_texto`
 (25, 128, 6, NULL, NULL, 1.00, '2025-06-16 15:34:57'),
 (26, 128, 7, NULL, NULL, 0.20, '2025-06-18 13:55:44'),
 (27, 128, 8, NULL, NULL, 0.00, '2025-06-15 17:39:16'),
-(28, 128, 9, NULL, NULL, 0.10, '2025-06-16 16:33:38'),
+(28, 128, 9, NULL, NULL, 1.00, '2025-07-05 20:08:38'),
 (29, 129, 6, NULL, NULL, 1.00, '2025-06-15 17:13:37'),
 (30, 129, 7, NULL, NULL, 1.00, '2025-06-15 17:13:38'),
 (31, 129, 8, NULL, NULL, 1.00, '2025-06-15 17:13:40'),
@@ -962,7 +1025,7 @@ CREATE TABLE `resoluciones_banco_preguntas` (
 INSERT INTO `resoluciones_banco_preguntas` (`id`, `alumno_id`, `ejercicio_id`, `respuesta_texto`, `respuesta_id`, `puntuacion_obtenida`, `fecha_respuesta`) VALUES
 (1, 129, 1, NULL, NULL, 0.30, '2025-06-18 15:28:29'),
 (2, 128, 1, NULL, NULL, 1.00, '2025-07-02 16:59:02'),
-(3, 128, 2, NULL, NULL, 0.10, '2025-06-18 15:22:49'),
+(3, 128, 2, NULL, NULL, 0.50, '2025-07-05 20:08:13'),
 (4, 129, 2, NULL, NULL, 0.30, '2025-06-18 15:22:51'),
 (5, 130, 1, NULL, NULL, 0.00, '2025-06-19 16:45:36'),
 (6, 130, 2, NULL, NULL, 0.00, '2025-07-02 20:00:27'),
@@ -1012,7 +1075,13 @@ INSERT INTO `resultados_aprendizaje` (`id`, `asignatura_id`, `codigo`, `descripc
 (4, 1, 'RA4', 'Modifica la información almacenada en la base de datos utilizando asistentes, herramientas gráficas y el lenguaje de manipulación de datos.'),
 (5, 1, 'RA5', 'Desarrolla procedimientos almacenados evaluando y utilizando las sentencias del lenguaje incorporado en el sistema gestor de bases de datos.'),
 (6, 1, 'RA6', 'Diseña modelos relacionales normalizados interpretando diagramas entidad/relación.'),
-(7, 1, 'RA7', 'Gestiona la información almacenada en bases de datos objeto-relacionales, evaluando y utilizando las posibilidades que proporciona el sistema gestor.');
+(7, 1, 'RA7', 'Gestiona la información almacenada en bases de datos objeto-relacionales, evaluando y utilizando las posibilidades que proporciona el sistema gestor.'),
+(8, 3, 'RA1', 'Interpreta lenguajes de marcas'),
+(9, 3, 'RA2', 'Utiliza lenguajes de marcas en la web'),
+(10, 3, 'RA3', 'Genera canales de contenidos (sindicaciones)'),
+(11, 3, 'RA4', 'Establece mecanismos de validación para XML'),
+(12, 3, 'RA5', 'Realiza conversiones de documentos XML'),
+(13, 3, 'RA6', 'Gestiona información en formato XML');
 
 -- --------------------------------------------------------
 
@@ -1396,7 +1465,7 @@ ALTER TABLE `banco_preguntas_en_examen`
 -- AUTO_INCREMENT de la tabla `criterios_evaluacion`
 --
 ALTER TABLE `criterios_evaluacion`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=52;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=259;
 
 --
 -- AUTO_INCREMENT de la tabla `cursos`
@@ -1450,7 +1519,7 @@ ALTER TABLE `examenes`
 -- AUTO_INCREMENT de la tabla `notas_examen_alumno`
 --
 ALTER TABLE `notas_examen_alumno`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=356;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=392;
 
 --
 -- AUTO_INCREMENT de la tabla `notas_finales_evaluacion`
@@ -1468,7 +1537,7 @@ ALTER TABLE `opciones_banco_pregunta`
 -- AUTO_INCREMENT de la tabla `ra_empresa_alumno`
 --
 ALTER TABLE `ra_empresa_alumno`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT de la tabla `resoluciones`
@@ -1486,7 +1555,7 @@ ALTER TABLE `resoluciones_banco_preguntas`
 -- AUTO_INCREMENT de la tabla `resultados_aprendizaje`
 --
 ALTER TABLE `resultados_aprendizaje`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT de la tabla `tareas_asignadas`
